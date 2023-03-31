@@ -6,6 +6,7 @@
 **/*.pbgrpc.dart
 **/*.pbjson.dart
 **/gen/
+.vscode/
 
 
 # Miscellaneous

@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
     Key? key,
