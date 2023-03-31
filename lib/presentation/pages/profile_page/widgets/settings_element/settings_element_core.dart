@@ -27,7 +27,7 @@ class SettingsElementCore extends StatelessWidget {
           vertical: height * 0.0225,
         ),
         decoration: BoxDecoration(
-          color: primary,
+          color: context.colors.primary.withOpacity(0.9),
           borderRadius: BorderRadius.circular(15),
         ),
         child: Row(

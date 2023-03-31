@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../utils/extensions.dart';
 import '../../../../application/search/search_bloc.dart';
 import '../../../router/router.dart';
-import '../../constants/colors.dart';
 import '../../constants/dimensions.dart';
 import 'bottom_navbar_element.dart';
 import 'extended_search_element.dart';
@@ -23,9 +22,15 @@ class BottomNavBar extends StatelessWidget {
       child: Container(
         width: context.screenSize.width * 1,
         height: context.screenSize.height * 0.125,
+<<<<<<< HEAD
         decoration: const BoxDecoration(
           color: primary,
           borderRadius: BorderRadius.only(
+=======
+        decoration: BoxDecoration(
+          color: context.colors.primary,
+          borderRadius: const BorderRadius.only(
+>>>>>>> a719f0b (SignIn & LoginPage UI)
             topLeft: radius,
             topRight: radius,
           ),

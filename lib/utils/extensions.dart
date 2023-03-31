@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 export 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -9,4 +9,8 @@ extension AppLocalizationsX on BuildContext {
 
 extension MediaQueryX on BuildContext {
   Size get screenSize => MediaQuery.of(this).size;
+}
+
+extension ThemeColorX on BuildContext {
+  ColorScheme get colors => Theme.of(this).colorScheme;
 }

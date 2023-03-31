@@ -12,7 +12,9 @@ class ExtendedSearchElement extends StatelessWidget {
     return TextFormField(
       decoration: InputDecoration(
         hintText: context.l10n.searchInputHolder,
-        prefixIcon: const Icon(Icons.search),
+        prefixIcon: const Icon(
+          Icons.search,
+        ),
       ),
       onFieldSubmitted: (value) => context.read<SearchBloc>().add(
             SearchSubmitted(value),
