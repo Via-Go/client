@@ -1,9 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:road_runner/presentation/router/router.dart';
+import '../../../../router/router.dart';
 
-import '../../../ex_pages.dart';
 import 'settings_element_core.dart';
 
 class SettingsElementLogIn extends StatelessWidget {

@@ -25,7 +25,8 @@ class _MyAppRouter extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.lightBlueAccent, brightness: Brightness.light),
+          seedColor: Colors.lightBlueAccent,
+        ),
       ),
       themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,

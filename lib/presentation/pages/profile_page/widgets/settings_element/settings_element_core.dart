@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../utils/extensions.dart';
-import '../../../../core/constants/colors.dart';
 
 class SettingsElementCore extends StatelessWidget {
   const SettingsElementCore({
