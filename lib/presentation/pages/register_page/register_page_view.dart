@@ -13,15 +13,16 @@ class RegisterPageView extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const AppLogo(),
-          PageTitle(title: context.l10n.authRegisterHeading),
-          const SizedBox(height: 20),
-          const SignUpForm(),
-        ],
-      )),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const AppLogo(),
+            PageTitle(title: context.l10n.authRegisterHeading),
+            const SizedBox(height: 20),
+            const SignUpForm(),
+          ],
+        ),
+      ),
     );
   }
 }
