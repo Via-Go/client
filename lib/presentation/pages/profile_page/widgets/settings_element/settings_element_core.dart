@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../utils/extensions.dart';
-import '../../../../core/constants/colors.dart';
+import '../../../../core/constants/radius.dart';
 
 class SettingsElementCore extends StatelessWidget {
   const SettingsElementCore({
@@ -27,8 +27,8 @@ class SettingsElementCore extends StatelessWidget {
           vertical: height * 0.0225,
         ),
         decoration: BoxDecoration(
-          color: primary,
-          borderRadius: BorderRadius.circular(15),
+          color: context.colors.primary.withOpacity(0.9),
+          borderRadius: BorderRadius.circular(formFieldRadius),
         ),
         child: Row(
           children: [

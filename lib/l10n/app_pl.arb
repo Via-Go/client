@@ -5,5 +5,17 @@
   "settingsTermsOfService": "Zasady użytkowania",
   "settingsCommunityGuidelines": "Wytyczne społeczności",
   "settingsPrivacyPolicy": "Polityka prywatności",
-  "searchInputHolder": "Dokąd chcesz się udać?"
+  "searchInputHolder": "Dokąd chcesz się udać?",
+  "authLoginHeading": "Witaj ponownie",
+  "authRegisterHeading": "Załóż konto",
+  "authEmail": "Adres e-mail",
+  "authUsername": "Nazwa użytkownika",
+  "authPassword": "Hasło",
+  "authForgotPassword": "Zapomniałeś hasła?",
+  "authSignIn": "Zaloguj się",
+  "authSignUp": "Zarejestruj się",
+  "authNoAccount": "Nie masz konta?",
+  "authHaveAccount": "Masz już konto?",
+  "authSignInWith": "Zaloguj się za pomocą",
+  "authSignUpWith": "Zarejestruj się za pomocą"
 }

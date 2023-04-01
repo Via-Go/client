@@ -14,6 +14,7 @@ part 'router.gr.dart';
   routes: <AutoRoute>[
     AutoRoute<SplashPage>(page: SplashPage, initial: true),
     AutoRoute<LoginPage>(page: LoginPage),
+    AutoRoute<RegisterPage>(page: RegisterPage),
     AutoRoute<HomePage>(page: HomePage),
     AutoRoute<SearchPage>(page: SearchPage),
     AutoRoute<ProfilePage>(page: ProfilePage),

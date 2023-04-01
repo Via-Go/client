@@ -1,21 +1,24 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../../../../router/router.dart';
 
-import 'settings_element_core.dart';
+import '../../../../utils/extensions.dart';
 
-class SettingsElementLogIn extends StatelessWidget {
-  const SettingsElementLogIn({
-    Key? key,
+class PageTitle extends StatelessWidget {
+  const PageTitle({
+    super.key,
     required this.title,
-  }) : super(key: key);
-
+  });
   final String title;
   @override
   Widget build(BuildContext context) {
-    return SettingsElementCore(
-        title: title, onTap: () => {context.router.push(const LoginRoute())});
+    return Text(
+      title,
+      style: TextStyle(
+        color: context.colors.primary,
+        fontSize: 40,
+        fontWeight: FontWeight.w300,
+      ),
+    );
   }
 
   @override
