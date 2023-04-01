@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../../../constants/radius.dart';
+
 class FormSubmitButton extends StatelessWidget {
   const FormSubmitButton({
     super.key,
@@ -16,7 +18,7 @@ class FormSubmitButton extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(formFieldRadius),
           ),
         ),
         onPressed: () {},

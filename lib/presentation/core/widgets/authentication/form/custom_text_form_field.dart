@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../../../constants/radius.dart';
+
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
     Key? key,
@@ -25,7 +27,7 @@ class CustomTextFormField extends StatelessWidget {
           hintText: hintText,
           filled: true,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(formFieldRadius),
             borderSide: BorderSide.none,
           )),
       keyboardType: keyboardType,
