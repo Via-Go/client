@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../utils/extensions.dart';
+import '../../../../../utils/extensions.dart';
 import 'custom_text_form_field.dart';
 
 class EmailFormField extends StatelessWidget {
@@ -9,8 +9,9 @@ class EmailFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomTextFormField(
-        prefixIcon: const Icon(Icons.email),
-        hintText: context.l10n.authEmail,
-        keyboardType: TextInputType.emailAddress);
+      prefixIcon: const Icon(Icons.email),
+      hintText: context.l10n.authEmail,
+      keyboardType: TextInputType.emailAddress,
+    );
   }
 }
