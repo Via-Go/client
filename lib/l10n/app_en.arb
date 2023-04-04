@@ -23,5 +23,8 @@
   "authNoAccount": "Don't have an account?",
   "authHaveAccount": "Already have an account?",
   "authSignInWith": "Sign in with",
-  "authSignUpWith": "Sign up with"
+  "authSignUpWith": "Sign up with",
+  "verifyEmailHeading": "Verify your email",
+  "verifyEmailInfo": "Check your email & click the link to activate your account",
+  "verifyEmailResend": "Resend"
 }

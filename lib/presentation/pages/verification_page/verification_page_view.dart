@@ -20,19 +20,20 @@ class VerificationPageView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const PageTitle(title: 'Verify your email'),
+            PageTitle(title: context.l10n.verifyEmailHeading),
             DefaultPadding(
               child: Text(
                   style: TextStyle(color: context.colors.onBackground),
                   textAlign: TextAlign.center,
-                  "Check your email & click the link to activate your account"),
+                  context.l10n.verifyEmailInfo),
             ),
             Icon(
               Icons.mail_outline,
               color: context.colors.primary,
               size: 200,
             ),
-            TextButton(onPressed: () {}, child: Text("Resend"))
+            TextButton(
+                onPressed: () {}, child: Text(context.l10n.verifyEmailResend))
           ],
         )),
       ),

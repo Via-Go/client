@@ -17,5 +17,8 @@
   "authNoAccount": "Nie masz konta?",
   "authHaveAccount": "Masz już konto?",
   "authSignInWith": "Zaloguj się za pomocą",
-  "authSignUpWith": "Zarejestruj się za pomocą"
+  "authSignUpWith": "Zarejestruj się za pomocą",
+  "verifyEmailHeading": "Sprawdź swój adres e-mail",
+  "verifyEmailInfo": "Sprawdź swoją skrzynkę pocztową i wejdź w link, aby zweryfikować swój adres e-mail",
+  "verifyEmailResend": "Wyślij ponownie"
 }
