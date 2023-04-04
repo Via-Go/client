@@ -18,9 +18,6 @@ class SignUpForm extends StatelessWidget {
         const DefaultPadding(
           child: EmailFormField(),
         ),
-        const DefaultPadding(
-          child: PasswordFormField(),
-        ),
         const SizedBox(
           height: 12,
         ),
