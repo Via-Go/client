@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../../utils/extensions.dart';
-import '../../../core/widgets/authentication/form/email_form_field.dart';
-import '../../../core/widgets/authentication/form/form_submit_buton.dart';
-import '../../../core/widgets/authentication/form/password_form_field.dart';
-import '../../../core/widgets/authentication/form/switch_form_button.dart';
+
+import '../../../core/widgets/authentication/form/ex_form.dart';
 import '../../../core/widgets/default_padding.dart';
 import '../../../router/router.dart';
 
