@@ -26,7 +26,6 @@ class CustomDropdownButtonFormField extends StatelessWidget {
           items: items
               .map(
                 (e) => DropdownMenuItem(
-                  
                   value: e,
                   child: Text(e),
                 ),
