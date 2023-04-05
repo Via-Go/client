@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../utils/extensions.dart';
+import '../../../../../../utils/extensions.dart';
 import 'custom_text_form_field.dart';
 
 class PasswordFormField extends StatefulWidget {
@@ -28,7 +28,7 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         CustomTextFormField(
-          hintText: context.l10n.authPassword,
+          hintText: context.l10n.password,
           keyboardType: TextInputType.visiblePassword,
           prefixIcon: const Icon(Icons.lock),
           suffixIcon: IconButton(

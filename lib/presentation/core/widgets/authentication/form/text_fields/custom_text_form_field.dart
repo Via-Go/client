@@ -1,7 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../../../constants/radius.dart';
+import '../../../../constants/decorations.dart';
+import '../../../../constants/radius.dart';
 
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
@@ -21,15 +22,11 @@ class CustomTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       obscureText: obscureText,
-      decoration: InputDecoration(
-          suffixIcon: suffixIcon,
-          prefixIcon: prefixIcon,
-          hintText: hintText,
-          filled: true,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(formFieldRadius),
-            borderSide: BorderSide.none,
-          )),
+      decoration: getInputDecoration(
+        hintText: hintText,
+        prefixIcon: prefixIcon,
+        suffixIcon: suffixIcon,
+      ),
       keyboardType: keyboardType,
     );
   }

@@ -17,7 +17,8 @@ part 'router.gr.dart';
     ), //! set initial:true
     AutoRoute<LoginPage>(page: LoginPage),
     AutoRoute<RegisterPage>(page: RegisterPage),
-    AutoRoute<VerificationPage>(page: VerificationPage, initial: true),
+    AutoRoute<VerificationPage>(page: VerificationPage),
+    AutoRoute<FillDataPage>(page: FillDataPage, initial: true),
     AutoRoute<HomePage>(page: HomePage),
     AutoRoute<SearchPage>(page: SearchPage),
     AutoRoute<ProfilePage>(page: ProfilePage),
