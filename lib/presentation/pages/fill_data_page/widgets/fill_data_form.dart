@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../utils/extensions.dart';
+import '../../../core/widgets/authentication/form/text_fields/date_field.dart';
 import '../../../core/widgets/authentication/form/form_submit_buton.dart';
-import '../../../core/widgets/authentication/form/selection/custom_dropdown_button_form_field.dart';
 import '../../../core/widgets/authentication/form/selection/gender_dropdown.dart';
-import '../../../core/widgets/authentication/form/text_fields/email_form_field.dart';
 import '../../../core/widgets/authentication/form/text_fields/name_form_field.dart';
 import '../../../core/widgets/default_padding.dart';
 
@@ -27,6 +27,7 @@ class FillDataForm extends StatelessWidget {
         const DefaultPadding(
           child: GenderDropdown(),
         ),
+        DefaultPadding(child: DateField()),
         DefaultPadding(
           child: FormSubmitButton(
             buttonText: context.l10n.fillDataSubmit,
