@@ -30,6 +30,6 @@
   "genderOther": "Inne",
   "dateOfBirth": "Data urodzenia",
   "driver": "Jesteś kierowcą?",
-  "driverYes": "Tak",
-  "driverNo": "Nie"
+  "driverYes": "Jestem kierowcą",
+  "driverNo": "Jestem pasażerem"
 }

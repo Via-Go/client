@@ -14,13 +14,15 @@ class FillDataPageView extends StatelessWidget {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         body: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            DefaultPadding(
-                child: PageTitle(title: context.l10n.fillDataHeading)),
-            FillDataForm(),
-          ],
+            child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              DefaultPadding(
+                  child: PageTitle(title: context.l10n.fillDataHeading)),
+              const FillDataForm(),
+            ],
+          ),
         )),
       ),
     );

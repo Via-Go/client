@@ -27,7 +27,7 @@ class CustomDropdownButtonFormField extends StatelessWidget {
                     child: Text(e),
                   ))
               .toList(),
-          onChanged: onChanged),
+          onChanged: onChanged ?? (_) {}),
     );
   }
 

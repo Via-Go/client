@@ -35,8 +35,7 @@
   "genderFemale": "Female",
   "genderOther": "Other",
   "dateOfBirth": "Date of birth",
-  "driver": "Are you a driver?",
-  "driverYes": "Yes",
-  "driverNo": "No"
+  "driverYes": "I'm a driver",
+  "driverNo": "I'm a passenger"
   
 }

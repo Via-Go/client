@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -14,12 +15,12 @@ class DateField extends StatefulWidget {
 }
 
 class _DateFieldState extends State<DateField> {
-  TextEditingController dateinput = TextEditingController();
+  TextEditingController dateInput = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return CustomTextFormField(
-        controller: dateinput,
-        prefixIcon: Icon(Icons.calendar_today),
+        controller: dateInput,
+        prefixIcon: const Icon(Icons.calendar_today),
         hintText: context.l10n.dateOfBirth,
         readOnly: true,
         onTap: () async {
@@ -33,10 +34,17 @@ class _DateFieldState extends State<DateField> {
             final formattedDate =
                 DateFormat('dd MMMM, yyyy').format(pickedDate);
             setState(() {
-              dateinput.text =
+              dateInput.text =
                   formattedDate; //set output date to TextField value.
             });
           }
         });
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+        DiagnosticsProperty<TextEditingController>('dateinput', dateInput));
   }
 }
