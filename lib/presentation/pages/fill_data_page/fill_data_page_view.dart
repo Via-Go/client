@@ -19,7 +19,8 @@ class FillDataPageView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               DefaultPadding(
-                  child: PageTitle(title: context.l10n.fillDataHeading)),
+                child: PageTitle(title: context.l10n.fillDataHeading),
+              ),
               const FillDataForm(),
             ],
           ),

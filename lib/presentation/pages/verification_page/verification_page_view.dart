@@ -17,8 +17,10 @@ class VerificationPageView extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              PageTitle(
-                title: context.l10n.verifyEmailHeading,
+              DefaultPadding(
+                child: PageTitle(
+                  title: context.l10n.verifyEmailHeading,
+                ),
               ),
               DefaultPadding(
                 child: Text(
