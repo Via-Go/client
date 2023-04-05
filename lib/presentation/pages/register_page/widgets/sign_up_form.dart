@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../utils/extensions.dart';
@@ -25,6 +26,7 @@ class SignUpForm extends StatelessWidget {
         ),
         DefaultPadding(
           child: FormSubmitButton(
+            onPressed: () => context.router.push(const VerificationRoute()),
             buttonText: context.l10n.authSignUp,
           ),
         ),

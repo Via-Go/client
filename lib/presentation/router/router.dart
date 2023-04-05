@@ -14,12 +14,13 @@ part 'router.gr.dart';
   routes: <AutoRoute>[
     AutoRoute<SplashPage>(
       page: SplashPage,
-    ), //! set initial:true
+      initial: true,
+    ),
     AutoRoute<LoginPage>(page: LoginPage),
     AutoRoute<RegisterPage>(page: RegisterPage),
     AutoRoute<VerificationPage>(page: VerificationPage),
     AutoRoute<FillDataPage>(page: FillDataPage),
-    AutoRoute<ResetPasswordPage>(page: ResetPasswordPage, initial: true),
+    AutoRoute<ResetPasswordPage>(page: ResetPasswordPage),
     AutoRoute<HomePage>(page: HomePage),
     AutoRoute<SearchPage>(page: SearchPage),
     AutoRoute<ProfilePage>(page: ProfilePage),

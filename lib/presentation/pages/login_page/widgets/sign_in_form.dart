@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../utils/extensions.dart';
@@ -21,9 +22,9 @@ class SignInForm extends StatelessWidget {
         const DefaultPadding(
           child: EmailFormField(),
         ),
-        const DefaultPadding(
+        DefaultPadding(
           child: PasswordFormField(
-            forgotPassword: true,
+            onPressed: () => context.router.push(const ResetPasswordRoute()),
           ),
         ),
         const SizedBox(
@@ -32,6 +33,7 @@ class SignInForm extends StatelessWidget {
         DefaultPadding(
           child: FormSubmitButton(
             buttonText: context.l10n.authSignIn,
+            onPressed: () {},
           ),
         ),
         const SizedBox(

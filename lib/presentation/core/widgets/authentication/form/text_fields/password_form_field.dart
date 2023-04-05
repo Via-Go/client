@@ -7,16 +7,16 @@ import 'custom_text_form_field.dart';
 class PasswordFormField extends StatefulWidget {
   const PasswordFormField({
     super.key,
-    this.forgotPassword = false,
+    this.onPressed,
   });
-  final bool forgotPassword;
+  final Function()? onPressed;
 
   @override
   State<PasswordFormField> createState() => _PasswordFormFieldState();
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<bool>('forgotPassword', forgotPassword));
+    properties.add(ObjectFlagProperty<Function()?>.has('onPressed', onPressed));
   }
 }
 
@@ -39,9 +39,9 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
           ),
           obscureText: _obscureText,
         ),
-        if (widget.forgotPassword)
+        if (widget.onPressed != null)
           TextButton(
-              onPressed: () {},
+              onPressed: widget.onPressed,
               child: Text(
                 context.l10n.authForgotPassword,
                 style: const TextStyle(fontWeight: FontWeight.bold),

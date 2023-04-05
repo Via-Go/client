@@ -13,23 +13,26 @@ class CustomDropdownButtonFormField extends StatelessWidget {
   final Function(String?)? onChanged;
   @override
   Widget build(BuildContext context) {
-    return InputDecorator(
-      decoration: getInputDecoration(prefixIcon: prefixIcon),
-      child: DropdownButtonFormField(
-        isExpanded: true,
-        borderRadius: BorderRadius.circular(formFieldRadius),
-        decoration: const InputDecoration(border: InputBorder.none),
-        dropdownColor: context.colors.surfaceVariant,
-        value: items.first,
-        items: items
-            .map(
-              (e) => DropdownMenuItem(
-                value: e,
-                child: Text(e),
-              ),
-            )
-            .toList(),
-        onChanged: onChanged ?? (_) {},
+    return SizedBox(
+      height: 60,
+      child: ButtonTheme(
+        alignedDropdown: true,
+        child: DropdownButtonFormField(
+          decoration: getInputDecoration(prefixIcon: prefixIcon),
+          isExpanded: true,
+          borderRadius: BorderRadius.circular(formFieldRadius),
+          dropdownColor: context.colors.surfaceVariant,
+          value: items.first,
+          items: items
+              .map(
+                (e) => DropdownMenuItem(
+                  value: e,
+                  child: Text(e),
+                ),
+              )
+              .toList(),
+          onChanged: onChanged ?? (_) {},
+        ),
       ),
     );
   }

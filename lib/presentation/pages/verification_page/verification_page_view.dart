@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/extensions.dart';
 import '../../core/widgets/authentication/page_title.dart';
 import '../../core/widgets/default_padding.dart';
+import '../../router/router.dart';
 
 class VerificationPageView extends StatelessWidget {
   const VerificationPageView({Key? key}) : super(key: key);
@@ -31,7 +33,7 @@ class VerificationPageView extends StatelessWidget {
                 size: 200,
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () => context.router.push(const FillDataRoute()),
                 child: Text(context.l10n.verifyEmailResend),
               )
             ],
