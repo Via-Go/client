@@ -19,26 +19,27 @@ class _DateFieldState extends State<DateField> {
   @override
   Widget build(BuildContext context) {
     return CustomTextFormField(
-        controller: dateInput,
-        prefixIcon: const Icon(Icons.calendar_today),
-        hintText: context.l10n.dateOfBirth,
-        readOnly: true,
-        onTap: () async {
-          final now = DateTime.now();
-          final pickedDate = await showDatePicker(
-              context: context,
-              initialDate: DateTime(now.year - 18, now.month, now.day),
-              firstDate: DateTime(1900),
-              lastDate: DateTime.now());
-          if (pickedDate != null) {
-            final formattedDate =
-                DateFormat('dd MMMM, yyyy').format(pickedDate);
-            setState(() {
-              dateInput.text =
-                  formattedDate; //set output date to TextField value.
-            });
-          }
-        });
+      controller: dateInput,
+      prefixIcon: const Icon(Icons.calendar_today),
+      hintText: context.l10n.dateOfBirth,
+      readOnly: true,
+      onTap: () async {
+        final now = DateTime.now();
+        final pickedDate = await showDatePicker(
+            context: context,
+            initialDate: DateTime(now.year - 18, now.month, now.day),
+            firstDate: DateTime(1900),
+            lastDate: DateTime.now());
+        if (pickedDate != null) {
+          final formattedDate = DateFormat('dd MMMM, yyyy').format(pickedDate);
+          setState(
+            () {
+              dateInput.text = formattedDate;
+            },
+          );
+        }
+      },
+    );
   }
 
   @override
