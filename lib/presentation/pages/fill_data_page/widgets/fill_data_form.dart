@@ -25,9 +25,6 @@ class FillDataForm extends StatelessWidget {
           ),
         ),
         const DefaultPadding(
-          child: EmailFormField(),
-        ),
-        DefaultPadding(
           child: GenderDropdown(),
         ),
         DefaultPadding(

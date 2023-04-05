@@ -6,21 +6,29 @@ import 'custom_dropdown_button_form_field.dart';
 
 class GenderDropdown extends StatefulWidget {
   const GenderDropdown({super.key});
-
   @override
   State<GenderDropdown> createState() => _GenderDropdownState();
 }
 
 class _GenderDropdownState extends State<GenderDropdown> {
-  bool male = true;
+  String? selected;
   @override
   Widget build(BuildContext context) {
+    selected ??= context.l10n.genderMale;
     return CustomDropdownButtonFormField(
-      items: [context.l10n.genderMale, context.l10n.genderFemale],
-      prefixIcon: male ? const Icon(Icons.male) : const Icon(Icons.female),
+      items: [
+        context.l10n.genderMale,
+        context.l10n.genderFemale,
+        context.l10n.genderOther
+      ],
+      prefixIcon: selected == context.l10n.genderMale
+          ? const Icon(Icons.male)
+          : selected == context.l10n.genderFemale
+              ? const Icon(Icons.female)
+              : const Icon(Icons.transgender),
       onChanged: (el) {
         setState(() {
-          male = el == context.l10n.genderMale;
+          selected = el;
         });
       },
     );
@@ -29,6 +37,6 @@ class _GenderDropdownState extends State<GenderDropdown> {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<bool>('male', male));
+    properties.add(StringProperty('selected', selected));
   }
 }
