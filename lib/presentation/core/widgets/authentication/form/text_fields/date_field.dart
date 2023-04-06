@@ -34,7 +34,8 @@ class _DateFieldState extends State<DateField> {
             lastDate: DateTime.now(),
           );
           if (pickedDate != null) {
-            final formattedDate = DateFormat('dd MMMM, yyyy').format(pickedDate);
+            final formattedDate =
+                DateFormat('dd MMMM, yyyy').format(pickedDate);
             setState(() {
               dateInput.text = formattedDate;
             });
