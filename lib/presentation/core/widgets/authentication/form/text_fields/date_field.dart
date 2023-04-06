@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../../utils/extensions.dart';
+import '../../../default_padding.dart';
 import 'custom_text_form_field.dart';
 
 class DateField extends StatefulWidget {
@@ -16,29 +17,30 @@ class DateField extends StatefulWidget {
 
 class _DateFieldState extends State<DateField> {
   TextEditingController dateInput = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return CustomTextFormField(
-      controller: dateInput,
-      prefixIcon: const Icon(Icons.calendar_today),
-      hintText: context.l10n.dateOfBirth,
-      readOnly: true,
-      onTap: () async {
-        final now = DateTime.now();
-        final pickedDate = await showDatePicker(
+    return DefaultPadding(
+      child: CustomTextFormField(
+        controller: dateInput,
+        prefixIcon: const Icon(Icons.calendar_today),
+        hintText: context.l10n.dateOfBirth,
+        readOnly: true,
+        onTap: () async {
+          final pickedDate = await showDatePicker(
             context: context,
-            initialDate: DateTime(now.year - 18, now.month, now.day),
+            initialDate: initialDate(),
             firstDate: DateTime(1900),
-            lastDate: DateTime.now());
-        if (pickedDate != null) {
-          final formattedDate = DateFormat('dd MMMM, yyyy').format(pickedDate);
-          setState(
-            () {
-              dateInput.text = formattedDate;
-            },
+            lastDate: DateTime.now(),
           );
-        }
-      },
+          if (pickedDate != null) {
+            final formattedDate = DateFormat('dd MMMM, yyyy').format(pickedDate);
+            setState(() {
+              dateInput.text = formattedDate;
+            });
+          }
+        },
+      ),
     );
   }
 
@@ -48,4 +50,14 @@ class _DateFieldState extends State<DateField> {
     properties.add(
         DiagnosticsProperty<TextEditingController>('dateinput', dateInput));
   }
+}
+
+DateTime initialDate() {
+  final now = DateTime.now();
+
+  // Laws differ from country to country, therefore this separation
+  // may come in handy later, when we will want to support more countries.
+  const adulteryAge = 18;
+
+  return DateTime(now.year - adulteryAge, now.month, now.day);
 }

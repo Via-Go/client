@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -7,17 +8,21 @@ import 'package:users_repository/users_repository.dart';
 import '../router/router.dart';
 
 class MyAppWidget extends StatelessWidget {
+  final _appRouter = AppRouter();
+
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
       create: (context) => UsersRepository(),
-      child: _MyAppRouter(),
+      child: _MyAppRouter(_appRouter),
     );
   }
 }
 
 class _MyAppRouter extends StatelessWidget {
-  final _appRouter = AppRouter();
+  const _MyAppRouter(this.router, {Key? key}) : super(key: key);
+
+  final AppRouter router;
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +36,8 @@ class _MyAppRouter extends StatelessWidget {
       themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
       title: 'Road Runner',
-      routerDelegate: _appRouter.delegate(),
-      routeInformationParser: _appRouter.defaultRouteParser(),
+      routerDelegate: router.delegate(),
+      routeInformationParser: router.defaultRouteParser(),
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -44,5 +49,10 @@ class _MyAppRouter extends StatelessWidget {
         Locale('pl'),
       ],
     );
+  }
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<AppRouter>('router', router));
   }
 }

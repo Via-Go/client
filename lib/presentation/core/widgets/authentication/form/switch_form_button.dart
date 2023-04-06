@@ -14,25 +14,31 @@ class SwitchFormButton extends StatelessWidget {
   }) : super(key: key);
   final String leadingText, buttonText;
   final PageRouteInfo route;
+
   @override
   Widget build(BuildContext context) {
     return RichText(
-        text: TextSpan(children: [
-      TextSpan(
-        text: leadingText,
-        style: TextStyle(color: context.colors.secondary),
-      ),
-      TextSpan(
-          text: ' $buttonText',
-          style: TextStyle(
-            color: context.colors.primary,
-            fontWeight: FontWeight.bold,
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: leadingText,
+            style: TextStyle(color: context.colors.secondary),
           ),
-          recognizer: TapGestureRecognizer()
-            ..onTap = () {
-              context.router.replace(route);
-            })
-    ]));
+          const WidgetSpan(child: SizedBox(width: 5)),
+          TextSpan(
+            text: buttonText,
+            style: TextStyle(
+              color: context.colors.primary,
+              fontWeight: FontWeight.bold,
+            ),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                context.router.replace(route);
+              },
+          )
+        ],
+      ),
+    );
   }
 
   @override

@@ -6,17 +6,22 @@ import '../../../../constants/decorations.dart';
 import '../../../../constants/radius.dart';
 
 class CustomDropdownButtonFormField extends StatelessWidget {
-  const CustomDropdownButtonFormField(
-      {super.key, required this.items, this.prefixIcon, this.onChanged});
+  const CustomDropdownButtonFormField({
+    super.key,
+    required this.items,
+    this.prefixIcon,
+    this.onChanged,
+  });
+
   final List<String> items;
   final Widget? prefixIcon;
   final Function(String?)? onChanged;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 60,
       child: ButtonTheme(
-        alignedDropdown: true,
         child: DropdownButtonFormField(
           decoration: getInputDecoration(prefixIcon: prefixIcon),
           isExpanded: true,

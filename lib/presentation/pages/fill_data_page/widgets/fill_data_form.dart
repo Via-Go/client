@@ -13,36 +13,31 @@ class FillDataForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
+    return const Form(
       child: Column(
         children: [
-          const DefaultPadding(
-            child: NameFormField(),
-          ),
-          const DefaultPadding(
-            child: NameFormField(
-              firstName: false,
-            ),
-          ),
-          const DefaultPadding(
-            child: GenderDropdown(),
-          ),
-          const DefaultPadding(
-            child: DateField(),
-          ),
-          const DefaultPadding(
-            child: DriverDropdown(),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          DefaultPadding(
-            child: FormSubmitButton(
-              buttonText: context.l10n.fillDataSubmit,
-              onPressed: () {},
-            ),
-          ),
+          NameFormField(),
+          NameFormField(firstName: false),
+          GenderDropdown(),
+          DateField(),
+          DriverDropdown(),
+          SizedBox(height: 10),
+          _FormSubmitButton(),
         ],
+      ),
+    );
+  }
+}
+
+class _FormSubmitButton extends StatelessWidget {
+  const _FormSubmitButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultPadding(
+      child: FormSubmitButton(
+        buttonText: context.l10n.fillDataSubmit,
+        onPressed: () {},
       ),
     );
   }

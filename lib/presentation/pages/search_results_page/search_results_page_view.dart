@@ -13,8 +13,8 @@ class SearchResultsPageView extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: horizontalPadding,
-              vertical: verticalPadding,
+              horizontal: Dimensions.horizontalPadding,
+              vertical: Dimensions.verticalPadding,
             ),
           ),
           Column(

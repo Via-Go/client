@@ -17,8 +17,8 @@ class ProfilePageView extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(
-              horizontal: horizontalPadding,
-              vertical: verticalPadding,
+              horizontal: Dimensions.horizontalPadding,
+              vertical: Dimensions.verticalPadding,
             ),
             child: Column(
               children: [

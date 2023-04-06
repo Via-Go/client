@@ -15,6 +15,7 @@ class CustomTextFormField extends StatelessWidget {
     this.onTap,
     this.readOnly = false,
   }) : super(key: key);
+
   final TextEditingController? controller;
   final TextInputType? keyboardType;
   final String hintText;
@@ -23,6 +24,7 @@ class CustomTextFormField extends StatelessWidget {
   final bool obscureText;
   final Function()? onTap;
   final bool readOnly;
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
