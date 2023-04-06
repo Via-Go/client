@@ -22,6 +22,7 @@ class VerificationPageView extends StatelessWidget {
                   title: context.l10n.verifyEmailHeading,
                 ),
               ),
+              const SizedBox(height: 10),
               DefaultPadding(
                 child: Text(
                   style: TextStyle(color: context.colors.onBackground),
@@ -29,14 +30,18 @@ class VerificationPageView extends StatelessWidget {
                   context.l10n.verifyEmailInfo,
                 ),
               ),
-              Icon(
-                Icons.mail_outline,
-                color: context.colors.primary,
-                size: 200,
+              DefaultPadding(
+                child: Icon(
+                  Icons.mail_outline,
+                  color: context.colors.primary,
+                  size: 300,
+                ),
               ),
-              TextButton(
-                onPressed: () => context.router.push(const FillDataRoute()),
-                child: Text(context.l10n.verifyEmailResend),
+              DefaultPadding(
+                child: TextButton(
+                  onPressed: () => context.router.push(const FillDataRoute()),
+                  child: Text(context.l10n.verifyEmailResend),
+                ),
               )
             ],
           ),

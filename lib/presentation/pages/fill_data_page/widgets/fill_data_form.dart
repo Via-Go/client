@@ -33,6 +33,9 @@ class FillDataForm extends StatelessWidget {
           const DefaultPadding(
             child: DriverDropdown(),
           ),
+          const SizedBox(
+            height: 10,
+          ),
           DefaultPadding(
             child: FormSubmitButton(
               buttonText: context.l10n.fillDataSubmit,

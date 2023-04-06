@@ -21,6 +21,7 @@ class FillDataPageView extends StatelessWidget {
               DefaultPadding(
                 child: PageTitle(title: context.l10n.fillDataHeading),
               ),
+              const SizedBox(height: 20),
               const FillDataForm(),
             ],
           ),

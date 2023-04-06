@@ -22,7 +22,7 @@ class SignUpForm extends StatelessWidget {
           child: EmailFormField(),
         ),
         const SizedBox(
-          height: 12,
+          height: 20,
         ),
         DefaultPadding(
           child: FormSubmitButton(
@@ -31,7 +31,7 @@ class SignUpForm extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: 36,
+          height: 30,
         ),
         SwitchFormButton(
           leadingText: context.l10n.authHaveAccount,

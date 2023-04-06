@@ -28,7 +28,7 @@ class SignInForm extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: 12,
+          height: 20,
         ),
         DefaultPadding(
           child: FormSubmitButton(
@@ -37,7 +37,7 @@ class SignInForm extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: 36,
+          height: 30,
         ),
         SwitchFormButton(
           leadingText: context.l10n.authNoAccount,
