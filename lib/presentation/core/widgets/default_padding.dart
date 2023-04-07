@@ -13,8 +13,8 @@ class DefaultPadding extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: horizontalPadding,
-        vertical: verticalPadding,
+        horizontal: Dimensions.horizontalPadding,
+        vertical: Dimensions.verticalPadding,
       ),
       child: child,
     );

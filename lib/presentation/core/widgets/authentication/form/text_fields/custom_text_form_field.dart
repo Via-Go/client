@@ -1,36 +1,43 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../../../constants/radius.dart';
+import '../../../../constants/decorations.dart';
 
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
     Key? key,
-    required this.keyboardType,
+    this.controller,
+    this.keyboardType,
     required this.hintText,
     this.prefixIcon,
     this.suffixIcon,
     this.obscureText = false,
+    this.onTap,
+    this.readOnly = false,
   }) : super(key: key);
-  final TextInputType keyboardType;
+
+  final TextEditingController? controller;
+  final TextInputType? keyboardType;
   final String hintText;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final bool obscureText;
+  final Function()? onTap;
+  final bool readOnly;
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       obscureText: obscureText,
-      decoration: InputDecoration(
-          suffixIcon: suffixIcon,
-          prefixIcon: prefixIcon,
-          hintText: hintText,
-          filled: true,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(formFieldRadius),
-            borderSide: BorderSide.none,
-          )),
+      decoration: getInputDecoration(
+        hintText: hintText,
+        prefixIcon: prefixIcon,
+        suffixIcon: suffixIcon,
+      ),
       keyboardType: keyboardType,
+      onTap: onTap,
+      readOnly: readOnly,
     );
   }
 
@@ -40,6 +47,10 @@ class CustomTextFormField extends StatelessWidget {
     properties
       ..add(StringProperty('hintText', hintText))
       ..add(DiagnosticsProperty<TextInputType>('keyboardType', keyboardType))
-      ..add(DiagnosticsProperty<bool>('obscureText', obscureText));
+      ..add(DiagnosticsProperty<bool>('obscureText', obscureText))
+      ..add(ObjectFlagProperty<Function()?>.has('onTap', onTap))
+      ..add(DiagnosticsProperty<bool?>('readOnly', readOnly))
+      ..add(DiagnosticsProperty<TextEditingController?>(
+          'controller', controller));
   }
 }

@@ -31,8 +31,8 @@ class BottomNavBar extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(
-            vertical: verticalPadding,
-            horizontal: horizontalPadding,
+            vertical: Dimensions.verticalPadding,
+            horizontal: Dimensions.horizontalPadding,
           ),
           child: BlocConsumer<SearchBloc, SearchState>(
             listener: (context, state) {

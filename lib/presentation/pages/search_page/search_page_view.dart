@@ -14,8 +14,8 @@ class SearchPageView extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(
-              left: horizontalPadding,
-              bottom: horizontalPadding,
+              left: Dimensions.horizontalPadding,
+              bottom: Dimensions.horizontalPadding,
               top: 75,
             ),
             child: Column(

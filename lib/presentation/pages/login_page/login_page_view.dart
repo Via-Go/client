@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../utils/extensions.dart';
 import '../../core/widgets/authentication/app_logo.dart';
 import '../../core/widgets/authentication/page_title.dart';
+import '../../core/widgets/default_padding.dart';
 import 'widgets/sign_in_form.dart';
 
 class LoginPageView extends StatelessWidget {
@@ -17,7 +18,9 @@ class LoginPageView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const AppLogo(),
-          PageTitle(title: context.l10n.authLoginHeading),
+          DefaultPadding(
+            child: PageTitle(title: context.l10n.authLoginHeading),
+          ),
           const SizedBox(height: 20),
           const SignInForm(),
         ],

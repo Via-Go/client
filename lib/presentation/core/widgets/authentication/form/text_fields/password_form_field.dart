@@ -1,22 +1,22 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../utils/extensions.dart';
+import '../../../../../../utils/extensions.dart';
 import 'custom_text_form_field.dart';
 
 class PasswordFormField extends StatefulWidget {
   const PasswordFormField({
     super.key,
-    this.forgotPassword = false,
+    this.onPressed,
   });
-  final bool forgotPassword;
+  final Function()? onPressed;
 
   @override
   State<PasswordFormField> createState() => _PasswordFormFieldState();
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<bool>('forgotPassword', forgotPassword));
+    properties.add(ObjectFlagProperty<Function()?>.has('onPressed', onPressed));
   }
 }
 
@@ -28,7 +28,7 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         CustomTextFormField(
-          hintText: context.l10n.authPassword,
+          hintText: context.l10n.password,
           keyboardType: TextInputType.visiblePassword,
           prefixIcon: const Icon(Icons.lock),
           suffixIcon: IconButton(
@@ -39,9 +39,9 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
           ),
           obscureText: _obscureText,
         ),
-        if (widget.forgotPassword)
+        if (widget.onPressed != null)
           TextButton(
-              onPressed: () {},
+              onPressed: widget.onPressed,
               child: Text(
                 context.l10n.authForgotPassword,
                 style: const TextStyle(fontWeight: FontWeight.bold),

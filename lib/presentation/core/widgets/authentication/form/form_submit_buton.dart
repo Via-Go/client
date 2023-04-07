@@ -7,8 +7,10 @@ class FormSubmitButton extends StatelessWidget {
   const FormSubmitButton({
     super.key,
     required this.buttonText,
+    required this.onPressed,
   });
   final String buttonText;
+  final Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class FormSubmitButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(formFieldRadius),
           ),
         ),
-        onPressed: () {},
+        onPressed: onPressed,
         child: Text(buttonText),
       ),
     );
@@ -30,6 +32,8 @@ class FormSubmitButton extends StatelessWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(StringProperty('buttonText', buttonText));
+    properties
+      ..add(StringProperty('buttonText', buttonText))
+      ..add(ObjectFlagProperty<Function()>.has('onPressed', onPressed));
   }
 }
