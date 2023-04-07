@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -21,23 +22,27 @@ class CustomDropdownButtonFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 60,
-      child: ButtonTheme(
-        child: DropdownButtonFormField(
-          decoration: getInputDecoration(prefixIcon: prefixIcon),
-          isExpanded: true,
-          borderRadius: BorderRadius.circular(formFieldRadius),
-          dropdownColor: context.colors.surfaceVariant,
-          value: items.first,
-          items: items
-              .map(
-                (e) => DropdownMenuItem(
-                  value: e,
-                  child: Text(e),
-                ),
-              )
-              .toList(),
-          onChanged: onChanged ?? (_) {},
+      child: DropdownButtonFormField2(
+        decoration: getInputDecoration(prefixIcon: prefixIcon),
+        menuItemStyleData: const MenuItemStyleData(
+          padding: EdgeInsets.zero,
         ),
+        dropdownStyleData: DropdownStyleData(
+          decoration: BoxDecoration(
+            color: context.colors.surfaceVariant,
+            borderRadius: BorderRadius.circular(formFieldRadius),
+          ),
+        ),
+        value: items.first,
+        items: items
+            .map(
+              (e) => DropdownMenuItem(
+                value: e,
+                child: Text(e),
+              ),
+            )
+            .toList(),
+        onChanged: onChanged ?? (_) {},
       ),
     );
   }
