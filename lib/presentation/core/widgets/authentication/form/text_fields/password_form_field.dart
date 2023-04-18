@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../../application/auth/sign_in_form_bloc/sign_in_form_bloc.dart';
 import '../../../../../../utils/extensions.dart';
 import 'custom_text_form_field.dart';
 
@@ -38,6 +40,11 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
                 : const Icon(Icons.visibility),
           ),
           obscureText: _obscureText,
+          onChanged: (value) {
+            context
+                .read<SignInFormBloc>()
+                .add(SignInFormEvent.passwordChanged(value));
+          }
         ),
         if (widget.onPressed != null)
           TextButton(

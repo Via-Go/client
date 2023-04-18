@@ -12,6 +12,7 @@ class CustomTextFormField extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.obscureText = false,
+    this.onChanged,
     this.onTap,
     this.readOnly = false,
   }) : super(key: key);
@@ -22,23 +23,24 @@ class CustomTextFormField extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final bool obscureText;
+  final Function(String)? onChanged;
   final Function()? onTap;
   final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: controller,
-      obscureText: obscureText,
-      decoration: getInputDecoration(
-        hintText: hintText,
-        prefixIcon: prefixIcon,
-        suffixIcon: suffixIcon,
-      ),
-      keyboardType: keyboardType,
-      onTap: onTap,
-      readOnly: readOnly,
-    );
+        controller: controller,
+        obscureText: obscureText,
+        decoration: getInputDecoration(
+          hintText: hintText,
+          prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
+        ),
+        keyboardType: keyboardType,
+        onChanged: onChanged,
+        readOnly: readOnly,
+        onTap: onTap);
   }
 
   @override
@@ -48,9 +50,10 @@ class CustomTextFormField extends StatelessWidget {
       ..add(StringProperty('hintText', hintText))
       ..add(DiagnosticsProperty<TextInputType>('keyboardType', keyboardType))
       ..add(DiagnosticsProperty<bool>('obscureText', obscureText))
-      ..add(ObjectFlagProperty<Function()?>.has('onTap', onTap))
+      ..add(ObjectFlagProperty<Function(String)?>.has('onChanged', onChanged))
       ..add(DiagnosticsProperty<bool?>('readOnly', readOnly))
-      ..add(DiagnosticsProperty<TextEditingController?>(
-          'controller', controller));
+      ..add(
+          DiagnosticsProperty<TextEditingController?>('controller', controller))
+      ..add(ObjectFlagProperty<Function()?>.has('onTap', onTap));
   }
 }

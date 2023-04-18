@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../../application/auth/sign_in_form_bloc/sign_in_form_bloc.dart';
 import '../../../../../../utils/extensions.dart';
 import 'custom_text_form_field.dart';
 
@@ -12,6 +14,9 @@ class EmailFormField extends StatelessWidget {
       prefixIcon: const Icon(Icons.email),
       hintText: context.l10n.email,
       keyboardType: TextInputType.emailAddress,
+      onChanged: (value) {
+        context.read<SignInFormBloc>().add(SignInFormEvent.emailChanged(value));
+      },
     );
   }
 }
