@@ -42,4 +42,29 @@ class UsersRepository implements UsersRepositoryI {
     // TODO: implement updateUser
     throw UnimplementedError();
   }
+
+  @override
+  Future<CallResult> createUser(
+      String username, String password, String email) {
+    // TODO: implement createUser
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<CallResult> deleteUser(String username) {
+    // TODO: implement deleteUser
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<CallResult> loginUser(String email, String password) {
+    // TODO: implement loginUser
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<CallResult> logoutUser(String id) {
+    // TODO: implement logoutUser
+    throw UnimplementedError();
+  }
 }
