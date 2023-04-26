@@ -1,11 +1,6 @@
 **/*.g.dart
 **/*.gr.dart
 **/*.freezed.dart
-**/*.pb.dart
-**/*.pbenum.dart
-**/*.pbgrpc.dart
-**/*.pbjson.dart
-**/gen/
 .vscode/
 
 
