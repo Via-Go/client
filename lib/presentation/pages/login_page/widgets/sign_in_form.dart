@@ -19,47 +19,36 @@ class SignInForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SignInFormBloc, SignInFormState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
-      builder: (context, state) {
-        return state.isSubmitting
-            ? const Center(child: CircularProgressIndicator())
-            : Form(
-                child: Column(children: [
-                  const DefaultPadding(
-                    child: EmailFormField(),
-                  ),
-                  DefaultPadding(
-                    child: PasswordFormField(
-                      onPressed: () =>
-                          context.router.push(const ResetPasswordRoute()),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  DefaultPadding(
-                    child: FormSubmitButton(
-                      buttonText: context.l10n.authSignIn,
-                      onPressed: () => context.read<SignInFormBloc>().add(
-                            const SignInFormEvent
-                                .signInWithEmailWithPasswordPressed(),
-                          ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  SwitchFormButton(
-                    leadingText: context.l10n.authNoAccount,
-                    buttonText: context.l10n.authSignUp,
-                    route: const RegisterRoute(),
-                  )
-                ]),
-              );
-      },
+    return Form(
+      child: Column(children: [
+        const DefaultPadding(
+          child: EmailFormField(),
+        ),
+        DefaultPadding(
+          child: PasswordFormField(
+            onPressed: () => context.router.push(const ResetPasswordRoute()),
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        DefaultPadding(
+          child: FormSubmitButton(
+            buttonText: context.l10n.authSignIn,
+            onPressed: () => context.read<SignInFormBloc>().add(
+                  const SignInFormEvent.signInWithEmailWithPasswordPressed(),
+                ),
+          ),
+        ),
+        const SizedBox(
+          height: 30,
+        ),
+        SwitchFormButton(
+          leadingText: context.l10n.authNoAccount,
+          buttonText: context.l10n.authSignUp,
+          route: const RegisterRoute(),
+        )
+      ]),
     );
   }
 }

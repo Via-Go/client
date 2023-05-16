@@ -7,7 +7,7 @@ class SignInFormState with _$SignInFormState {
     required Password password,
     required bool showErrorMessages,
     required bool isSubmitting,
-    required Either<AuthFailure, Unit> authFailureOrSuccessOption,
+    required Either<AuthFailure, Unit> authResult,
   }) = _SignInFormState;
 
   factory SignInFormState.initial() => SignInFormState(
@@ -15,6 +15,6 @@ class SignInFormState with _$SignInFormState {
     password: Password(''),
     isSubmitting: false,
     showErrorMessages: false,
-    authFailureOrSuccessOption: right(unit),
+    authResult: right(unit),
   );
 }

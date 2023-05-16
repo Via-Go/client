@@ -8,7 +8,9 @@ import '../../../domain/auth/auth_failure.dart';
 import '../../../domain/auth/value_objects.dart';
 
 part 'sign_in_form_event.dart';
+
 part 'sign_in_form_state.dart';
+
 part 'sign_in_form_bloc.freezed.dart';
 
 class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
@@ -21,11 +23,38 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
 
     on<PasswordChanged>((event, emit) {
       emit(state.copyWith(
-        emailAddress: EmailAddress(event.password),
+        password: Password(event.password),
       ));
     });
 
-    on<SignInWithEmailWithPasswordPressed>((event, emit) {
+    on<SignInWithEmailWithPasswordPressed>((event, emit) async {
+      emit(state.copyWith(
+        isSubmitting: true,
+      ));
+
+      final usernameString = state.emailAddress
+          .getOrCrash(); // for now it will also work as username <!TODO>
+      final passwordString = state.password.getOrCrash();
+
+      final result = await _usersRepository.createUser(
+        usernameString,
+        passwordString,
+        usernameString,
+      );
+
+      emit(state.copyWith(
+        isSubmitting: false,
+      ));
+
+      if (result.isLeft()) {
+        emit(state.copyWith(
+          authResult: left(const AuthFailure.serverError()),
+        ));
+        return;
+      }
+      emit(state.copyWith(
+        authResult: right(unit),
+      ));
     });
   }
 

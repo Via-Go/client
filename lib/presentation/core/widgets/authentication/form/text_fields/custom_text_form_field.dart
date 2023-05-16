@@ -15,6 +15,7 @@ class CustomTextFormField extends StatelessWidget {
     this.onChanged,
     this.onTap,
     this.readOnly = false,
+    this.validator,
   }) : super(key: key);
 
   final TextEditingController? controller;
@@ -26,21 +27,25 @@ class CustomTextFormField extends StatelessWidget {
   final Function(String)? onChanged;
   final Function()? onTap;
   final bool readOnly;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-        controller: controller,
-        obscureText: obscureText,
-        decoration: getInputDecoration(
-          hintText: hintText,
-          prefixIcon: prefixIcon,
-          suffixIcon: suffixIcon,
-        ),
-        keyboardType: keyboardType,
-        onChanged: onChanged,
-        readOnly: readOnly,
-        onTap: onTap);
+      controller: controller,
+      obscureText: obscureText,
+      decoration: getInputDecoration(
+        hintText: hintText,
+        prefixIcon: prefixIcon,
+        suffixIcon: suffixIcon,
+      ),
+      keyboardType: keyboardType,
+      onChanged: onChanged,
+      readOnly: readOnly,
+      onTap: onTap,
+      validator: validator,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+    );
   }
 
   @override
@@ -54,6 +59,8 @@ class CustomTextFormField extends StatelessWidget {
       ..add(DiagnosticsProperty<bool?>('readOnly', readOnly))
       ..add(
           DiagnosticsProperty<TextEditingController?>('controller', controller))
-      ..add(ObjectFlagProperty<Function()?>.has('onTap', onTap));
+      ..add(ObjectFlagProperty<Function()?>.has('onTap', onTap))
+      ..add(ObjectFlagProperty<String? Function(String? p1)?>.has(
+          'validator', validator));
   }
 }

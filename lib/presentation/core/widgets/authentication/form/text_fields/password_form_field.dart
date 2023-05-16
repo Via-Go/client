@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../application/auth/sign_in_form_bloc/sign_in_form_bloc.dart';
 import '../../../../../../utils/extensions.dart';
+import '../../../../constants/decorations.dart';
 import 'custom_text_form_field.dart';
 
 class PasswordFormField extends StatefulWidget {
@@ -11,10 +12,12 @@ class PasswordFormField extends StatefulWidget {
     super.key,
     this.onPressed,
   });
+
   final Function()? onPressed;
 
   @override
   State<PasswordFormField> createState() => _PasswordFormFieldState();
+
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
@@ -23,37 +26,33 @@ class PasswordFormField extends StatefulWidget {
 }
 
 class _PasswordFormFieldState extends State<PasswordFormField> {
-  bool _obscureText = true;
+  // bool _obscureText = true;
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        CustomTextFormField(
-          hintText: context.l10n.password,
-          keyboardType: TextInputType.visiblePassword,
-          prefixIcon: const Icon(Icons.lock),
-          suffixIcon: IconButton(
-            onPressed: () => setState(() => _obscureText = !_obscureText),
-            icon: _obscureText
-                ? const Icon(Icons.visibility_off)
-                : const Icon(Icons.visibility),
-          ),
-          obscureText: _obscureText,
-          onChanged: (value) {
-            context
-                .read<SignInFormBloc>()
-                .add(SignInFormEvent.passwordChanged(value));
-          }
+    return TextFormField(
+      decoration: getInputDecoration(
+        hintText: context.l10n.password,
+        prefixIcon: const Icon(Icons.lock),
+        suffixIcon: IconButton(
+          icon: const Icon(Icons.remove_red_eye),
+          onPressed: widget.onPressed,
         ),
-        if (widget.onPressed != null)
-          TextButton(
-              onPressed: widget.onPressed,
-              child: Text(
-                context.l10n.authForgotPassword,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ))
-      ],
+      ),
+      autocorrect: false,
+      obscureText: true,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      onChanged: (value) => context.read<SignInFormBloc>().add(
+            SignInFormEvent.passwordChanged(value),
+          ),
+      validator: (_) =>
+          context.read<SignInFormBloc>().state.password.value.fold(
+                (l) => l.maybeMap(
+                  invalidPassword: (_) => 'Invalid password',
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
     );
   }
 }

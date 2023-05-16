@@ -1,3 +1,5 @@
+import 'package:grpc/grpc.dart';
+
 import '../core/typedefs.dart';
 
 abstract class UsersRepositoryI {
@@ -12,4 +14,6 @@ abstract class UsersRepositoryI {
   Future<CallResult> loginUser(String email, String password);
 
   Future<CallResult> logoutUser(String id);
+
+  late ClientChannel channel;
 }

@@ -10,17 +10,8 @@ import '../gen/proto/v1/users.pbgrpc.dart';
 class UsersRepository implements UsersRepositoryI {
   @override
   Future<CallResult> getUser(String username) async {
-    final channel = ClientChannel(
-      '192.168.0.100',
-      port: 50051,
-      options: ChannelOptions(
-        credentials: const ChannelCredentials.insecure(),
-        codecRegistry:
-            CodecRegistry(codecs: const [GzipCodec(), IdentityCodec()]),
-      ),
-    );
-
     final client = UsersClient(channel);
+
     try {
       final response = await client.getUser(
         GetUserRequest()..username = username,
@@ -45,9 +36,23 @@ class UsersRepository implements UsersRepositoryI {
 
   @override
   Future<CallResult> createUser(
-      String username, String password, String email) {
-    // TODO: implement createUser
-    throw UnimplementedError();
+      String username, String password, String email) async {
+    final client = UsersClient(channel);
+
+    try {
+      final response = await client.getUser(
+        GetUserRequest()..username = username,
+      );
+
+      await channel.shutdown();
+      return right(response);
+    } on GrpcError catch (err) {
+      if (kDebugMode) {
+        debugPrint(err.toString());
+      }
+      await channel.shutdown();
+      return left(const CallFailure.serverError());
+    }
   }
 
   @override
@@ -67,4 +72,15 @@ class UsersRepository implements UsersRepositoryI {
     // TODO: implement logoutUser
     throw UnimplementedError();
   }
+
+  @override
+  ClientChannel channel = ClientChannel(
+    '192.168.0.100',
+    port: 50051,
+    options: ChannelOptions(
+      credentials: const ChannelCredentials.insecure(),
+      codecRegistry:
+          CodecRegistry(codecs: const [GzipCodec(), IdentityCodec()]),
+    ),
+  );
 }
