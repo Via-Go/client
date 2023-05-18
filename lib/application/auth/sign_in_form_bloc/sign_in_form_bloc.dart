@@ -32,14 +32,21 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
         isSubmitting: true,
       ));
 
-      final usernameString = state.emailAddress
-          .getOrCrash(); // for now it will also work as username <!TODO>
-      final passwordString = state.password.getOrCrash();
+      final isUsernameValid = state.emailAddress.isValid();
+      final isPasswordValid = state.password.isValid();
+
+      if (!isUsernameValid || !isPasswordValid) {
+        emit(state.copyWith(
+          authResult: left(const AuthFailure.invalidEmailOrPassword()),
+          isSubmitting: false,
+        ));
+        return;
+      }
 
       final result = await _usersRepository.createUser(
-        usernameString,
-        passwordString,
-        usernameString,
+        state.emailAddress.getOrCrash(),
+        state.password.getOrCrash(),
+        state.emailAddress.getOrCrash(),
       );
 
       emit(state.copyWith(

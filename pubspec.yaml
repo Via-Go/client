@@ -6,7 +6,7 @@ publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ">=3.1.0-112.0.dev"
+  sdk: ">=3.0.1"
 
 dependencies:
   flutter:
@@ -26,6 +26,7 @@ dependencies:
   change_app_package_name: ^1.1.0
   oauth2: ^2.0.1
   dropdown_button2: ^2.0.0
+  hive: ^2.2.3
 
 dev_dependencies:
   analyzer: ^5.7.1

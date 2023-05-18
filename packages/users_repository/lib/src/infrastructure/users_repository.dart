@@ -9,7 +9,7 @@ import '../gen/proto/v1/users.pbgrpc.dart';
 
 class UsersRepository implements UsersRepositoryI {
   @override
-  Future<CallResult> getUser(String username) async {
+  Future<Either<CallFailure, GetUserResponse>> getUser(String username) async {
     final client = UsersClient(channel);
 
     try {
@@ -29,19 +29,23 @@ class UsersRepository implements UsersRepositoryI {
   }
 
   @override
-  Future<CallResult> updateUser(String username) {
+  Future<Either<CallFailure, UpdateUserResponse>> updateUser(String username) {
     // TODO: implement updateUser
     throw UnimplementedError();
   }
 
   @override
-  Future<CallResult> createUser(
+  Future<Either<CallFailure, CreateUserResponse>> createUser(
       String username, String password, String email) async {
     final client = UsersClient(channel);
 
     try {
-      final response = await client.getUser(
-        GetUserRequest()..username = username,
+      final response = await client.createUser(
+        CreateUserRequest(
+          username: username,
+          password: password,
+          email: email,
+        ),
       );
 
       await channel.shutdown();
@@ -56,19 +60,19 @@ class UsersRepository implements UsersRepositoryI {
   }
 
   @override
-  Future<CallResult> deleteUser(String username) {
+  Future<Either<CallFailure, DeleteUserResponse>> deleteUser(String username) {
     // TODO: implement deleteUser
     throw UnimplementedError();
   }
 
   @override
-  Future<CallResult> loginUser(String email, String password) {
+  Future<Either<CallFailure, LoginUserResponse>> loginUser(String email, String password) {
     // TODO: implement loginUser
     throw UnimplementedError();
   }
 
   @override
-  Future<CallResult> logoutUser(String id) {
+  Future<Either<CallFailure, LogoutUserResponse>> logoutUser(String id) {
     // TODO: implement logoutUser
     throw UnimplementedError();
   }

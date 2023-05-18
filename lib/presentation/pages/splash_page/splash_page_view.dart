@@ -27,7 +27,6 @@ class SplashPageView extends StatelessWidget {
         } else {
           context.router.replace(const LoginRoute());
         }
-
       },
       child: SafeArea(
         child: Scaffold(
