@@ -2,6 +2,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:grpc/grpc.dart';
 
 import '../../../users_repository.dart';
+import '../../gen/proto/v1/users.pbgrpc.dart';
 import '../core/typedefs.dart';
 import 'call_failure.dart';
 
@@ -19,6 +20,4 @@ abstract class UsersRepositoryI {
       String email, String password);
 
   Future<Either<CallFailure, LogoutUserResponse>> logoutUser(String id);
-
-  late ClientChannel channel;
 }

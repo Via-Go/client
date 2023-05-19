@@ -9,3 +9,14 @@ class AuthFailure with _$AuthFailure {
   const factory AuthFailure.emailAlreadyInUse() = EmailAlreadyInUse;
   const factory AuthFailure.invalidEmailOrPassword() = InvalidEmailOrPassword;
 }
+
+extension AuthFailureX on AuthFailure {
+  String get message {
+    return when(
+      cancelledByUser: () => 'Cancelled',
+      serverError: () => 'Server error',
+      emailAlreadyInUse: () => 'Email already in use',
+      invalidEmailOrPassword: () => 'Invalid email or password',
+    );
+  }
+}

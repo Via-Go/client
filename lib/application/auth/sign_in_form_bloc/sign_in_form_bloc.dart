@@ -32,10 +32,10 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
         isSubmitting: true,
       ));
 
-      final isUsernameValid = state.emailAddress.isValid();
+      final isEmailValid = state.emailAddress.isValid();
       final isPasswordValid = state.password.isValid();
 
-      if (!isUsernameValid || !isPasswordValid) {
+      if (!isEmailValid || !isPasswordValid) {
         emit(state.copyWith(
           authResult: left(const AuthFailure.invalidEmailOrPassword()),
           isSubmitting: false,
@@ -43,10 +43,9 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
         return;
       }
 
-      final result = await _usersRepository.createUser(
+      final result = await _usersRepository.loginUser(
         state.emailAddress.getOrCrash(),
         state.password.getOrCrash(),
-        state.emailAddress.getOrCrash(),
       );
 
       emit(state.copyWith(
