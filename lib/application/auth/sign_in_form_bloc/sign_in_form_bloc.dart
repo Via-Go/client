@@ -28,6 +28,12 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
       ));
     });
 
+    on<UsernameChanged>((event, emit) {
+      emit(state.copyWith(
+        username: Username(event.username),
+      ));
+    });
+
     on<SignInWithEmailAndPasswordPressed>((event, emit) async {
       emit(state.copyWith(
         isSubmitting: true,
@@ -73,6 +79,56 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
       emit(state.copyWith(
         authResult: none(),
       ));
+
+      emit(state.copyWith(
+        authResult: some(right(unit)),
+      ));
+    });
+
+    on<SignUpPressed>((event, emit) async {
+      emit(state.copyWith(
+        authResult: none(),
+        isSubmitting: true,
+      ));
+
+      final isEmailValid = state.emailAddress.isValid();
+      final isPasswordValid = state.password.isValid();
+      final isUsernameValid = state.username.isValid();
+
+      // TODO FIX THIS
+      if (!isEmailValid || !isPasswordValid || !isUsernameValid) {
+        emit(state.copyWith(
+          authResult: some(left(const AuthFailure.invalidEmailOrPassword())),
+          isSubmitting: false,
+        ));
+        return;
+      }
+
+      final result = await _usersRepository.createUser(
+        state.emailAddress.getOrCrash(),
+        state.password.getOrCrash(),
+        state.username.getOrCrash(),
+      );
+
+      emit(state.copyWith(
+        isSubmitting: false,
+      ));
+
+      if (result.isLeft()) {
+        emit(state.copyWith(
+          authResult: some(left(const AuthFailure.serverError())),
+        ));
+        return;
+      }
+
+      final response = result.forceRight();
+
+      if (response.status != Status.SUCCESS) {
+        emit(state.copyWith(
+          authResult: some(left(const AuthFailure.invalidEmailOrPassword())),
+        ));
+        return;
+      }
 
       emit(state.copyWith(
         authResult: some(right(unit)),
