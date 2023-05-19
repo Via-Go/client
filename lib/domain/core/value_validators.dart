@@ -20,10 +20,9 @@ Either<ValueFailure<String>, String> validateEmailAddress(String input) {
 }
 
 Either<ValueFailure<String>, String> validatePassword(String input) {
-  // TODO: implement password regex
-  // https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
+  final regex = RegExp(r'^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$');
 
-  if (input.length >= 6) {
+  if (regex.hasMatch(input)) {
     return right(input);
   } else {
     return left(ValueFailure.invalidPassword(failedValue: input));
@@ -31,7 +30,7 @@ Either<ValueFailure<String>, String> validatePassword(String input) {
 }
 
 Either<ValueFailure<String>, String> validateUsername(String input) {
-  if (input.length >= 6) {
+  if (input.length >= 6 && input.length < 20) {
     return right(input);
   } else {
     return left(ValueFailure.invalidUsername(failedValue: input));

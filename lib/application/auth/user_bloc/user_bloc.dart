@@ -18,7 +18,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       ));
 
       // check token in cache? mock for now
-      final token = DateTime.now().second % 2 == 0 ? some('token') : none();
+      final token = none();
       if (token.isNone()) {
         emit(state.copyWith(
           isCheckingAuthStatus: some(false),
@@ -44,7 +44,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       ));
     });
 
-    on<SignedOut>((event, emit){
+    on<SignedOut>((event, emit) {
       // TODO remove token from cache
       emit(state.copyWith(
         user: none(),
