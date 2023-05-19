@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:flutter/services.dart';
 import 'package:grpc/grpc.dart';
 
 import '../domain/core/typedefs.dart';
@@ -7,16 +10,44 @@ import '../domain/users/call_failure.dart';
 import '../domain/users/users_repository_i.dart';
 import '../gen/proto/v1/users.pbgrpc.dart';
 
+class MyChannelCredentials extends ChannelCredentials {
+  MyChannelCredentials({
+    Uint8List? trustedRoots,
+    this.certificateChain,
+    this.privateKey,
+    String? authority,
+    BadCertificateHandler? onBadCertificate,
+  }) : super.secure(
+            certificates: trustedRoots,
+            authority: authority,
+            onBadCertificate: onBadCertificate);
+  final Uint8List? certificateChain;
+  final Uint8List? privateKey;
+
+  @override
+  SecurityContext get securityContext {
+    final ctx = super.securityContext;
+    if (certificateChain != null) {
+      ctx!.useCertificateChainBytes(certificateChain as List<int>);
+    }
+    if (privateKey != null) {
+      ctx!.usePrivateKeyBytes(privateKey as List<int>);
+    }
+    return ctx!;
+  }
+}
+
 class UsersRepository implements UsersRepositoryI {
   // without it, I can't close the channel, I do not know why
   ClientChannel _createChannel() {
     return ClientChannel(
-      '192.168.0.100',
+      '127.0.0.1',
       port: 50051,
       options: ChannelOptions(
         credentials: const ChannelCredentials.insecure(),
-        codecRegistry:
-            CodecRegistry(codecs: const [GzipCodec(), IdentityCodec()]),
+        codecRegistry: CodecRegistry(
+          codecs: const [GzipCodec(), IdentityCodec()],
+        ),
       ),
     );
   }
@@ -70,8 +101,9 @@ class UsersRepository implements UsersRepositoryI {
       if (kDebugMode) {
         debugPrint(err.toString());
       }
-      await channel.shutdown();
       return left(const CallFailure.serverError());
+    } finally {
+      await channel.shutdown();
     }
   }
 

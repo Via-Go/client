@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,9 +9,9 @@ import '../../../utils/extensions.dart';
 import '../../core/widgets/authentication/app_logo.dart';
 import '../../core/widgets/authentication/page_title.dart';
 import '../../core/widgets/default_padding.dart';
+import '../../router/router.dart';
 import 'widgets/auth_snackbar.dart';
 import 'widgets/sign_in_form.dart';
-import '../../../domain/auth/auth_failure.dart';
 
 class LoginPageView extends StatelessWidget {
   const LoginPageView({Key? key}) : super(key: key);
@@ -22,23 +23,28 @@ class LoginPageView extends StatelessWidget {
       body: Center(
         child: BlocConsumer<SignInFormBloc, SignInFormState>(
           listenWhen: (previous, current) {
-            if (previous.authResult.isRight() && current.authResult.isLeft()) {
+            if (previous.authResult.isNone() && current.authResult.isSome()) {
               return true;
             }
+
             return false;
           },
           listener: (context, state) {
-            if (state.authResult.isRight()) {
-              return;
-            }
+            state.authResult.fold(() => null, (result) {
+              if (result.isRight()) {
+                context.router.popForced();
+                context.router.push(const HomeRoute());
+                return;
+              }
 
-            final failure = state.authResult.forceLeft();
+              final failure = result.forceLeft();
 
-            ScaffoldMessenger.of(context).showSnackBar(
-              authSnackBar(
-                content: failure.message,
-              ),
-            );
+              ScaffoldMessenger.of(context).showSnackBar(
+                authSnackBar(
+                  content: failure.message,
+                ),
+              );
+            });
           },
           builder: (context, state) {
             if (state.isSubmitting) {

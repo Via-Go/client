@@ -6,6 +6,7 @@ import 'package:users_repository/users_repository.dart';
 
 import '../../../domain/auth/auth_failure.dart';
 import '../../../domain/auth/value_objects.dart';
+import '../../../domain/core/extensions.dart';
 
 part 'sign_in_form_event.dart';
 
@@ -27,9 +28,10 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
       ));
     });
 
-    on<SignInWithEmailWithPasswordPressed>((event, emit) async {
+    on<SignInWithEmailAndPasswordPressed>((event, emit) async {
       emit(state.copyWith(
         isSubmitting: true,
+        authResult: none(),
       ));
 
       final isEmailValid = state.emailAddress.isValid();
@@ -37,7 +39,7 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
 
       if (!isEmailValid || !isPasswordValid) {
         emit(state.copyWith(
-          authResult: left(const AuthFailure.invalidEmailOrPassword()),
+          authResult: some(left(const AuthFailure.invalidEmailOrPassword())),
           isSubmitting: false,
         ));
         return;
@@ -54,12 +56,26 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
 
       if (result.isLeft()) {
         emit(state.copyWith(
-          authResult: left(const AuthFailure.serverError()),
+          authResult: some(left(const AuthFailure.serverError())),
         ));
         return;
       }
+
+      final response = result.forceRight();
+
+      if (response.status != Status.SUCCESS) {
+        emit(state.copyWith(
+          authResult: some(left(const AuthFailure.invalidEmailOrPassword())),
+        ));
+        return;
+      }
+
       emit(state.copyWith(
-        authResult: right(unit),
+        authResult: none(),
+      ));
+
+      emit(state.copyWith(
+        authResult: some(right(unit)),
       ));
     });
   }
