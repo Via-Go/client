@@ -2,14 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:flutter/services.dart';
 import 'package:grpc/grpc.dart';
 
-import '../domain/core/typedefs.dart';
 import '../domain/users/call_failure.dart';
 import '../domain/users/users_repository_i.dart';
 import '../gen/proto/v1/users.pbgrpc.dart';
 
+/*
 class MyChannelCredentials extends ChannelCredentials {
   MyChannelCredentials({
     Uint8List? trustedRoots,
@@ -37,8 +36,9 @@ class MyChannelCredentials extends ChannelCredentials {
   }
 }
 
+ */
+
 class UsersRepository implements UsersRepositoryI {
-  // without it, I can't close the channel, I do not know why
   ClientChannel _createChannel() {
     return ClientChannel(
       '127.0.0.1',
@@ -53,7 +53,9 @@ class UsersRepository implements UsersRepositoryI {
   }
 
   @override
-  Future<Either<CallFailure, GetUserResponse>> getUser(String username) async {
+  Future<Either<CallFailure, GetUserResponse>> getUser({
+    required String username,
+  }) async {
     final channel = _createChannel();
     final client = UsersClient(channel);
 
@@ -74,14 +76,19 @@ class UsersRepository implements UsersRepositoryI {
   }
 
   @override
-  Future<Either<CallFailure, UpdateUserResponse>> updateUser(String username) {
+  Future<Either<CallFailure, UpdateUserResponse>> updateUser({
+    required String username,
+  }) {
     // TODO: implement updateUser
     throw UnimplementedError();
   }
 
   @override
-  Future<Either<CallFailure, CreateUserResponse>> createUser(
-      String username, String password, String email) async {
+  Future<Either<CallFailure, CreateUserResponse>> createUser({
+    required String username,
+    required String password,
+    required String email,
+  }) async {
     final channel = _createChannel();
     final client = UsersClient(channel);
 
@@ -108,14 +115,18 @@ class UsersRepository implements UsersRepositoryI {
   }
 
   @override
-  Future<Either<CallFailure, DeleteUserResponse>> deleteUser(String username) {
+  Future<Either<CallFailure, DeleteUserResponse>> deleteUser({
+    required String username,
+  }) {
     // TODO: implement deleteUser
     throw UnimplementedError();
   }
 
   @override
-  Future<Either<CallFailure, LoginUserResponse>> loginUser(
-      String email, String password) async {
+  Future<Either<CallFailure, LoginUserResponse>> loginUser({
+    required String username,
+    required String password,
+  }) async {
     final channel = _createChannel();
     final client = UsersClient(channel);
 
@@ -123,7 +134,7 @@ class UsersRepository implements UsersRepositoryI {
       final response = await compute(
         client.loginUser,
         LoginUserRequest(
-          username: email,
+          username: username,
           password: password,
         ),
       );
@@ -140,7 +151,9 @@ class UsersRepository implements UsersRepositoryI {
   }
 
   @override
-  Future<Either<CallFailure, LogoutUserResponse>> logoutUser(String id) {
+  Future<Either<CallFailure, LogoutUserResponse>> logoutUser({
+    required String id,
+  }) {
     // TODO: implement logoutUser
     throw UnimplementedError();
   }

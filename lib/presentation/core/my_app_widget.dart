@@ -6,6 +6,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:users_repository/users_repository.dart';
 
 import '../../application/auth/user_bloc/user_bloc.dart';
+import '../../domain/cache/cache_repository_i.dart';
+import '../../infrastructure/cache_repository.dart';
 import '../router/router.dart';
 
 class MyAppWidget extends StatelessWidget {
@@ -13,8 +15,15 @@ class MyAppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) => UsersRepository(),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<UsersRepository>(
+          create: (context) => UsersRepository(),
+        ),
+        RepositoryProvider<CacheRepository>(
+          create: (context) => CacheRepository()..init(),
+        ),
+      ],
       child: BlocProvider(
         create: (context) => UserBloc()
           ..add(

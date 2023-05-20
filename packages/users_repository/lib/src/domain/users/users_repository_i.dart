@@ -7,17 +7,30 @@ import '../core/typedefs.dart';
 import 'call_failure.dart';
 
 abstract class UsersRepositoryI {
-  Future<Either<CallFailure, GetUserResponse>> getUser(String username);
+  Future<Either<CallFailure, GetUserResponse>> getUser({
+    required String username,
+  });
 
-  Future<Either<CallFailure, UpdateUserResponse>> updateUser(String username);
+  Future<Either<CallFailure, UpdateUserResponse>> updateUser({
+    required String username,
+  });
 
-  Future<Either<CallFailure, CreateUserResponse>> createUser(
-      String username, String password, String email);
+  Future<Either<CallFailure, CreateUserResponse>> createUser({
+    required String username,
+    required String password,
+    required String email,
+  });
 
-  Future<Either<CallFailure, DeleteUserResponse>> deleteUser(String username);
+  Future<Either<CallFailure, DeleteUserResponse>> deleteUser({
+    required String username,
+  });
 
-  Future<Either<CallFailure, LoginUserResponse>> loginUser(
-      String email, String password);
+  Future<Either<CallFailure, LoginUserResponse>> loginUser({
+    required String username,
+    required String password,
+  });
 
-  Future<Either<CallFailure, LogoutUserResponse>> logoutUser(String id);
+  Future<Either<CallFailure, LogoutUserResponse>> logoutUser({
+    required String id,
+  });
 }

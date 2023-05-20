@@ -2,10 +2,10 @@ import 'value_failure.dart';
 
 class UnAuthenticatedError extends Error {}
 
-class UnexpectedValueError extends Error {
+class UnexpectedValueError<T> extends Error {
   UnexpectedValueError(this.valueFailure);
 
-  final ValueFailure valueFailure;
+  final ValueFailure<T> valueFailure;
 
   @override
   String toString() {

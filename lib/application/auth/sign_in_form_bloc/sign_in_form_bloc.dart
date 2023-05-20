@@ -5,7 +5,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:users_repository/users_repository.dart';
 
 import '../../../domain/auth/auth_failure.dart';
+import '../../../domain/auth/user.dart';
 import '../../../domain/auth/value_objects.dart';
+import '../../../domain/cache/auth_entry.dart';
+import '../../../domain/cache/cache_repository_i.dart';
 import '../../../domain/core/extensions.dart';
 
 part 'sign_in_form_event.dart';
@@ -15,7 +18,8 @@ part 'sign_in_form_state.dart';
 part 'sign_in_form_bloc.freezed.dart';
 
 class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
-  SignInFormBloc(this._usersRepository) : super(SignInFormState.initial()) {
+  SignInFormBloc(this._usersRepository, this._cacheRepository)
+      : super(SignInFormState.initial()) {
     on<EmailChanged>((event, emit) {
       emit(state.copyWith(
         emailAddress: EmailAddress(event.email),
@@ -40,10 +44,10 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
         authResult: none(),
       ));
 
-      final isEmailValid = state.emailAddress.isValid();
+      final isUsernameValid = state.username.isValid();
       final isPasswordValid = state.password.isValid();
 
-      if (!isEmailValid || !isPasswordValid) {
+      if (!isUsernameValid || !isPasswordValid) {
         emit(state.copyWith(
           authResult: some(left(const AuthFailure.invalidEmailOrPassword())),
           isSubmitting: false,
@@ -51,37 +55,14 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
         return;
       }
 
-      final result = await _usersRepository.loginUser(
-        state.emailAddress.getOrCrash(),
+      final result = await _loginAndSaveUser(
+        state.username.getOrCrash(),
         state.password.getOrCrash(),
       );
 
       emit(state.copyWith(
+        authResult: some(result),
         isSubmitting: false,
-      ));
-
-      if (result.isLeft()) {
-        emit(state.copyWith(
-          authResult: some(left(const AuthFailure.serverError())),
-        ));
-        return;
-      }
-
-      final response = result.forceRight();
-
-      if (response.status != Status.SUCCESS) {
-        emit(state.copyWith(
-          authResult: some(left(const AuthFailure.invalidEmailOrPassword())),
-        ));
-        return;
-      }
-
-      emit(state.copyWith(
-        authResult: none(),
-      ));
-
-      emit(state.copyWith(
-        authResult: some(right(unit)),
       ));
     });
 
@@ -104,9 +85,9 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
       }
 
       final result = await _usersRepository.createUser(
-        state.emailAddress.getOrCrash(),
-        state.password.getOrCrash(),
-        state.username.getOrCrash(),
+        email: state.emailAddress.getOrCrash(),
+        password: state.password.getOrCrash(),
+        username: state.username.getOrCrash(),
       );
 
       emit(state.copyWith(
@@ -129,6 +110,8 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
         return;
       }
 
+      // login user
+
       emit(state.copyWith(
         authResult: some(right(unit)),
       ));
@@ -136,6 +119,31 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
   }
 
   final UsersRepositoryI _usersRepository;
+  final CacheRepositoryI _cacheRepository;
+
+  Future<Either<AuthFailure, Unit>> _loginAndSaveUser(
+      String username, String password) async {
+    final result = await _usersRepository.loginUser(
+      username: username,
+      password: password,
+    );
+
+    if (result.isLeft()) {
+      return left(const AuthFailure.serverError());
+    }
+
+    final response = result.forceRight();
+
+    if (response.status != Status.SUCCESS) {
+      return left(const AuthFailure.invalidEmailOrPassword());
+    }
+
+    final userEntry = AuthEntry.userDTO(user: User.fromDTO(response.userDTO));
+
+    await _cacheRepository.saveAuthData(userEntry);
+
+    return right(unit);
+  }
 
   @override
   void onTransition(Transition<SignInFormEvent, SignInFormState> transition) {

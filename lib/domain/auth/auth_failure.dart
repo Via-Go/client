@@ -6,7 +6,7 @@ import '../../utils/extensions.dart';
 part 'auth_failure.freezed.dart';
 
 @freezed
-class AuthFailure with _$AuthFailure {
+sealed class AuthFailure with _$AuthFailure {
   const factory AuthFailure.cancelledByUser() = CancelledByUser;
 
   const factory AuthFailure.serverError() = ServerError;

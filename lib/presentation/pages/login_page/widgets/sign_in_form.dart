@@ -6,8 +6,8 @@ import '../../../../application/auth/sign_in_form_bloc/sign_in_form_bloc.dart';
 import '../../../../utils/extensions.dart';
 import '../../../core/widgets/authentication/form/form_submit_buton.dart';
 import '../../../core/widgets/authentication/form/switch_form_button.dart';
-import '../../../core/widgets/authentication/form/text_fields/email_form_field.dart';
 import '../../../core/widgets/authentication/form/text_fields/password_form_field.dart';
+import '../../../core/widgets/authentication/form/text_fields/username_form_field.dart';
 import '../../../core/widgets/default_padding.dart';
 import '../../../router/router.dart';
 
@@ -21,7 +21,7 @@ class SignInForm extends StatelessWidget {
     return Form(
       child: Column(children: [
         const DefaultPadding(
-          child: EmailFormField(),
+          child: UsernameFormField(),
         ),
         DefaultPadding(
           child: PasswordFormField(
