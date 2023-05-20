@@ -41,7 +41,7 @@ class RegisterPageView extends StatelessWidget {
 
               ScaffoldMessenger.of(context).showSnackBar(
                 authSnackBar(
-                  content: failure.message,
+                  content: failure.message(context),
                 ),
               );
             });

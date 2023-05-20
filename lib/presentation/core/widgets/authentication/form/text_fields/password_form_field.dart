@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../application/auth/sign_in_form_bloc/sign_in_form_bloc.dart';
 import '../../../../../../utils/extensions.dart';
 import '../../../../constants/decorations.dart';
-import 'custom_text_form_field.dart';
 
 class PasswordFormField extends StatefulWidget {
   const PasswordFormField({
@@ -26,8 +25,6 @@ class PasswordFormField extends StatefulWidget {
 }
 
 class _PasswordFormFieldState extends State<PasswordFormField> {
-  // bool _obscureText = true;
-
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -45,10 +42,18 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
       onChanged: (value) => context.read<SignInFormBloc>().add(
             SignInFormEvent.passwordChanged(value),
           ),
+      onEditingComplete: () => {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+                'Password should contains 8-16 characters, one uppercase and lowercase letter and one special character'),
+          ),
+        ),
+      },
       validator: (_) =>
           context.read<SignInFormBloc>().state.password.value.fold(
                 (l) => l.maybeMap(
-                  invalidPassword: (_) => 'Invalid password',
+                  invalidPassword: (_) => 'Invalid Password',
                   orElse: () => null,
                 ),
                 (_) => null,

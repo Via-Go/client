@@ -95,10 +95,9 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
       final isPasswordValid = state.password.isValid();
       final isUsernameValid = state.username.isValid();
 
-      // TODO FIX THIS
-      if (!isEmailValid || !isPasswordValid || !isUsernameValid) {
+      if (!isUsernameValid || !isPasswordValid || !isEmailValid) {
         emit(state.copyWith(
-          authResult: some(left(const AuthFailure.invalidEmailOrPassword())),
+          authResult: some(left(const AuthFailure.invalidRegistrationInput())),
           isSubmitting: false,
         ));
         return;
