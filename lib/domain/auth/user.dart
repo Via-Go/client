@@ -1,21 +1,31 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hive/hive.dart';
 import 'package:users_repository/users_repository.dart';
 
-part 'user.freezed.dart';
+part 'user.g.dart';
 
-@freezed
-sealed class User with _$User {
-  const factory User({
-    required String id,
-    required String username,
-    required String email,
-  }) = _User;
+@HiveType(typeId: 3)
+class User {
+  User({
+    required this.id,
+    required this.username,
+    required this.email,
+  });
 
-  factory User.fromDTO(UserDTO dto) {
+  factory User.fromDTO(UserDTO userDTO) {
     return User(
-      id: dto.id,
-      username: dto.username,
-      email: dto.email,
+      id: userDTO.id,
+      username: userDTO.username,
+      email: userDTO.email,
     );
   }
+
+  @HiveField(0)
+  final String id;
+
+  @HiveField(1)
+  final String username;
+
+  @HiveField(2)
+  final String email;
 }

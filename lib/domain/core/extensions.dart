@@ -11,3 +11,9 @@ extension ForceRight<L, R> on Either<L, R> {
     return fold((l) => throw AssertionError(), (r) => r);
   }
 }
+
+extension ForceSome<T> on Option<T> {
+  T forceSome() {
+    return fold(() => throw AssertionError(), (t) => t);
+  }
+}

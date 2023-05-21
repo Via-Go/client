@@ -17,15 +17,16 @@ class MyAppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
+        RepositoryProvider<CacheRepository>(
+          create: (context) => CacheRepository()..initAdapters(),
+          lazy: false,
+        ),
         RepositoryProvider<UsersRepository>(
           create: (context) => UsersRepository(),
         ),
-        RepositoryProvider<CacheRepository>(
-          create: (context) => CacheRepository()..init(),
-        ),
       ],
       child: BlocProvider(
-        create: (context) => UserBloc()
+        create: (context) => UserBloc(context.read<CacheRepository>())
           ..add(
             const UserEvent.authCheckRequested(),
           ),

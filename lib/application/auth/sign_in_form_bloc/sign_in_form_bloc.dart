@@ -138,12 +138,12 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
       return left(const AuthFailure.invalidEmailOrPassword());
     }
 
-    await _cacheRepository.saveAccessToken(
-      AccessToken(token: response.jwtToken),
+    await _cacheRepository.saveTokens(
+      accessToken: AccessToken(token: response.jwtToken),
+      refreshToken: RefreshToken(token: response.refreshToken),
     );
-    await _cacheRepository.saveRefreshToken(
-      RefreshToken(token: response.refreshToken),
-    );
+
+    await _cacheRepository.saveUserFromDTO(response.userDTO);
 
     return right(unit);
   }

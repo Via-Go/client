@@ -3,6 +3,8 @@ import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../domain/auth/user.dart';
+import '../../../infrastructure/cache_repository.dart';
+import '../../../domain/core/extensions.dart';
 
 part 'user_event.dart';
 
@@ -11,30 +13,37 @@ part 'user_state.dart';
 part 'user_bloc.freezed.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
-  UserBloc() : super(UserState.initial()) {
-    on<AuthCheckRequested>((event, emit) {
+  UserBloc(this._cacheRepository) : super(UserState.initial()) {
+    on<AuthCheckRequested>((event, emit) async {
       emit(state.copyWith(
         isCheckingAuthStatus: some(true),
       ));
 
       // check token in cache? mock for now
-      final token = none();
-      if (token.isNone()) {
+      final accessToken = await _cacheRepository.retrieveAccessToken();
+
+      if (accessToken.isNone()) {
         emit(state.copyWith(
           isCheckingAuthStatus: some(false),
         ));
         return;
       }
 
-      // <TODO> fetch user
-      const user = User(
-        id: 'id',
-        username: 'username',
-        email: 'email',
-      );
+      final user = await _cacheRepository.retrieveUser();
+
+      if (user.isNone()) {
+        emit(state.copyWith(
+          isCheckingAuthStatus: some(false),
+          user: none(),
+        ));
+        return;
+      }
+
+      final _user = user.forceSome();
+
       emit(state.copyWith(
-        user: some(user),
         isCheckingAuthStatus: some(false),
+        user: some(_user),
       ));
     });
 
@@ -51,4 +60,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       ));
     });
   }
+
+  final CacheRepository _cacheRepository;
 }
