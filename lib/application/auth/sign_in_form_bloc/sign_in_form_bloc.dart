@@ -5,10 +5,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:users_repository/users_repository.dart';
 
 import '../../../domain/auth/auth_failure.dart';
-import '../../../domain/auth/user.dart';
 import '../../../domain/auth/value_objects.dart';
-import '../../../domain/cache/auth_entry.dart';
+import '../../../domain/cache/access_token.dart';
 import '../../../domain/cache/cache_repository_i.dart';
+import '../../../domain/cache/refresh_token.dart';
 import '../../../domain/core/extensions.dart';
 
 part 'sign_in_form_event.dart';
@@ -138,9 +138,12 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
       return left(const AuthFailure.invalidEmailOrPassword());
     }
 
-    final userEntry = AuthEntry.userDTO(user: User.fromDTO(response.userDTO));
-
-    await _cacheRepository.saveAuthData(userEntry);
+    await _cacheRepository.saveAccessToken(
+      AccessToken(token: response.jwtToken),
+    );
+    await _cacheRepository.saveRefreshToken(
+      RefreshToken(token: response.refreshToken),
+    );
 
     return right(unit);
   }

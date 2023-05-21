@@ -21,6 +21,7 @@ class UsernameFormField extends StatelessWidget {
             .read<SignInFormBloc>()
             .add(SignInFormEvent.usernameChanged(value));
       },
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (_) =>
           context.read<SignInFormBloc>().state.username.value.fold(
                 (f) => f.maybeMap(

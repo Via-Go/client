@@ -1,9 +1,12 @@
-import 'auth_entry.dart';
+import 'access_token.dart';
+import 'refresh_token.dart';
 
 abstract class CacheRepositoryI {
-  Future<void> saveAuthData(AuthEntry authEntry);
+  Future<void> saveAccessToken(AccessToken token);
 
-  Future<void> deleteAuthData(String key);
+  Future<void> saveRefreshToken(RefreshToken token);
+
+  Future<void> deleteToken(String key);
 
   Future<void> init();
 }
