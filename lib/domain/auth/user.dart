@@ -1,4 +1,3 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:users_repository/users_repository.dart';
 

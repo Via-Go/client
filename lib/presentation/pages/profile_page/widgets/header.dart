@@ -1,10 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {
-  const Header(
-      {required this.greetingText, required this.featuresInfoText, Key? key,})
-      : super(key: key);
+  const Header({
+    required this.greetingText,
+    required this.featuresInfoText,
+    Key? key,
+  }) : super(key: key);
 
   final String greetingText;
   final String featuresInfoText;
@@ -38,7 +40,8 @@ class Header extends StatelessWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties..add(StringProperty('greetingText', greetingText))..add(
-        StringProperty('featuresInfoText', featuresInfoText));
+    properties
+      ..add(StringProperty('greetingText', greetingText))
+      ..add(StringProperty('featuresInfoText', featuresInfoText));
   }
 }

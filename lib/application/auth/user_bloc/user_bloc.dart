@@ -3,14 +3,12 @@ import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../domain/auth/user.dart';
-import '../../../infrastructure/cache_repository.dart';
 import '../../../domain/core/extensions.dart';
-
-part 'user_event.dart';
-
-part 'user_state.dart';
+import '../../../infrastructure/cache_repository.dart';
 
 part 'user_bloc.freezed.dart';
+part 'user_event.dart';
+part 'user_state.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc(this._cacheRepository) : super(UserState.initial()) {

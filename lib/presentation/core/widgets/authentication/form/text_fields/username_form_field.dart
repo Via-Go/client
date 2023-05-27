@@ -7,29 +7,34 @@ import '../../../../constants/decorations.dart';
 
 class UsernameFormField extends StatelessWidget {
   const UsernameFormField({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      decoration: getInputDecoration(
-        prefixIcon: const Icon(Icons.person),
-        hintText: 'Username',
-      ),
-      keyboardType: TextInputType.name,
-      onChanged: (value) {
-        context
-            .read<SignInFormBloc>()
-            .add(SignInFormEvent.usernameChanged(value));
-      },
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      validator: (_) =>
-          context.read<SignInFormBloc>().state.username.value.fold(
-                (f) => f.maybeMap(
-                  invalidUsername: (_) => context.l10n.formInvalidUsername,
-                  orElse: () => null,
-                ),
-                (_) => null,
+    return BlocBuilder<SignInFormBloc, SignInFormState>(
+      builder: (context, state) {
+        return TextFormField(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            decoration: getInputDecoration(
+              prefixIcon: const Icon(Icons.person),
+              hintText: 'Username',
+              showValidatorMessages: state.username.value.fold(
+                (f) => state.showValidatorMessages,
+                (_) => false,
               ),
+            ),
+            keyboardType: TextInputType.name,
+            onChanged: (value) {
+              context
+                  .read<SignInFormBloc>()
+                  .add(SignInFormEvent.usernameChanged(value));
+            },
+            validator: (_) => state.username.value.fold(
+                  (f) => f.maybeMap(
+                    invalidUsername: (_) => context.l10n.formInvalidUsername,
+                    orElse: () => null,
+                  ),
+                  (_) => null,
+                ));
+      },
     );
   }
 }

@@ -19,7 +19,6 @@ class EmailFormField extends StatelessWidget {
       onChanged: (value) {
         context.read<SignInFormBloc>().add(SignInFormEvent.emailChanged(value));
       },
-      autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (_) =>
           context.read<SignInFormBloc>().state.emailAddress.value.fold(
                 (f) => f.maybeMap(

@@ -38,7 +38,6 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
       ),
       autocorrect: false,
       obscureText: true,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
       onChanged: (value) => context.read<SignInFormBloc>().add(
             SignInFormEvent.passwordChanged(value),
           ),

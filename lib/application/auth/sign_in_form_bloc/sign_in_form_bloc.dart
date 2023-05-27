@@ -11,11 +11,9 @@ import '../../../domain/cache/cache_repository_i.dart';
 import '../../../domain/cache/refresh_token.dart';
 import '../../../domain/core/extensions.dart';
 
-part 'sign_in_form_event.dart';
-
-part 'sign_in_form_state.dart';
-
 part 'sign_in_form_bloc.freezed.dart';
+part 'sign_in_form_event.dart';
+part 'sign_in_form_state.dart';
 
 class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
   SignInFormBloc(this._usersRepository, this._cacheRepository)
@@ -51,6 +49,7 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
         emit(state.copyWith(
           authResult: some(left(const AuthFailure.invalidEmailOrPassword())),
           isSubmitting: false,
+          showValidatorMessages: true,
         ));
         return;
       }
