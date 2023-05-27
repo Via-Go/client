@@ -19,50 +19,58 @@ class LoginPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Center(
-        child: BlocConsumer<SignInFormBloc, SignInFormState>(
-          listenWhen: (previous, current) {
-            if (previous.authResult.isNone() && current.authResult.isSome()) {
-              return true;
+      body: BlocConsumer<SignInFormBloc, SignInFormState>(
+        listenWhen: (previous, current) {
+          if (previous.authResult.isNone() && current.authResult.isSome()) {
+            return true;
+          }
+
+          return false;
+        },
+        listener: (context, state) {
+          state.authResult.fold(() => null, (result) {
+            if (result.isRight()) {
+              context.router.popForced();
+              context.router.push(const HomeRoute());
+              return;
             }
 
-            return false;
-          },
-          listener: (context, state) {
-            state.authResult.fold(() => null, (result) {
-              if (result.isRight()) {
-                context.router.popForced();
-                context.router.push(const HomeRoute());
-                return;
-              }
+            final failure = result.forceLeft();
 
-              final failure = result.forceLeft();
-
-              ScaffoldMessenger.of(context).showSnackBar(
-                authSnackBar(
-                  content: failure.message(context),
-                ),
-              );
-            });
-          },
-          builder: (context, state) {
-            if (state.isSubmitting) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const AppLogo(),
-                DefaultPadding(
-                  child: PageTitle(title: context.l10n.authLoginHeading),
-                ),
-                const SizedBox(height: 20),
-                const SignInForm(),
-              ],
+            ScaffoldMessenger.of(context).showSnackBar(
+              authSnackBar(
+                content: failure.message(context),
+              ),
             );
-          },
-        ),
+          });
+        },
+        builder: (context, state) {
+          if (state.isSubmitting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return SingleChildScrollView(
+            physics: const ClampingScrollPhysics(),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minWidth: MediaQuery.of(context).size.width,
+                minHeight: MediaQuery.of(context).size.height,
+              ),
+              child: IntrinsicHeight(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const AppLogo(),
+                    DefaultPadding(
+                      child: PageTitle(title: context.l10n.authLoginHeading),
+                    ),
+                    const SizedBox(height: 20),
+                    const SignInForm(),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
