@@ -13,8 +13,8 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => SignInFormBloc(
-         context.read<UsersRepository>(),
-         context.read<CacheRepository>(),
+        context.read<UsersRepository>(),
+        context.read<CacheRepository>(),
       ),
       child: const RegisterPageView(),
     );
