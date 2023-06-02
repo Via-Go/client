@@ -24,6 +24,7 @@
   "resetPasswordInfo": "Wpisz swój adres e-mail, a my wyślemy Ci link do zresetowania hasła",
   "resetPasswordSubmit": "Zresetuj hasło",
   "email": "Adres e-mail",
+  "username": "Nazwa użytkownika",
   "password": "Hasło",
   "firstName": "Imię",
   "lastName": "Nazwisko",
@@ -34,5 +35,16 @@
   "dateOfBirth": "Data urodzenia",
   "driver": "Jesteś kierowcą?",
   "driverYes": "Jestem kierowcą",
-  "driverNo": "Jestem pasażerem"
+  "driverNo": "Jestem pasażerem",
+  "authCancelledByUser": "Logowanie zostało anulowane przez użytkownika",
+  "authServerError": "Wystąpił błąd serwera",
+  "authEmailAlreadyInUse": "Ten email jest już używany przez innego użytkownika",
+  "authInvalidEmailOrPassword": "Niepoprawny email lub hasło",
+  "authInvalidRegistrationInput": "Proszę, wprowadź poprawne dane",
+  "formInvalidPassword": "Niepoprawne hasło",
+  "formInvalidEmail": "Niepoprawny email",
+  "formInvalidUsername": "Niepoprawna nazwa użytkownika",
+  "formInvalidPasswordExplanation": "Hasło powinno zawierać 8-16 liter, przynajmniej jedną małą i wielką literę, znak specjalny oraz cyfrę",
+  "formInvalidEmailExplanation": "Proszę, wprowadź poprawny adres email",
+  "formInvalidUsernameExplanation": "Nazwa użytkownika powinna zawierać 6-20 liter"
 }

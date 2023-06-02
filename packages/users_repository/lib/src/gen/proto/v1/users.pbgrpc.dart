@@ -16,37 +16,37 @@ export 'users.pb.dart';
 class UsersClient extends $grpc.Client {
   static final _$createUser =
       $grpc.ClientMethod<$0.CreateUserRequest, $0.CreateUserResponse>(
-          '/users.Users/CreateUser',
+          '/users.v1.Users/CreateUser',
           ($0.CreateUserRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.CreateUserResponse.fromBuffer(value));
   static final _$getUser =
       $grpc.ClientMethod<$0.GetUserRequest, $0.GetUserResponse>(
-          '/users.Users/GetUser',
+          '/users.v1.Users/GetUser',
           ($0.GetUserRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.GetUserResponse.fromBuffer(value));
   static final _$updateUser =
       $grpc.ClientMethod<$0.UpdateUserRequest, $0.UpdateUserResponse>(
-          '/users.Users/UpdateUser',
+          '/users.v1.Users/UpdateUser',
           ($0.UpdateUserRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.UpdateUserResponse.fromBuffer(value));
   static final _$deleteUser =
       $grpc.ClientMethod<$0.DeleteUserRequest, $0.DeleteUserResponse>(
-          '/users.Users/DeleteUser',
+          '/users.v1.Users/DeleteUser',
           ($0.DeleteUserRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.DeleteUserResponse.fromBuffer(value));
   static final _$loginUser =
       $grpc.ClientMethod<$0.LoginUserRequest, $0.LoginUserResponse>(
-          '/users.Users/LoginUser',
+          '/users.v1.Users/LoginUser',
           ($0.LoginUserRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.LoginUserResponse.fromBuffer(value));
   static final _$logoutUser =
       $grpc.ClientMethod<$0.LogoutUserRequest, $0.LogoutUserResponse>(
-          '/users.Users/LogoutUser',
+          '/users.v1.Users/LogoutUser',
           ($0.LogoutUserRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.LogoutUserResponse.fromBuffer(value));
@@ -93,7 +93,7 @@ class UsersClient extends $grpc.Client {
 }
 
 abstract class UsersServiceBase extends $grpc.Service {
-  $core.String get $name => 'users.Users';
+  $core.String get $name => 'users.v1.Users';
 
   UsersServiceBase() {
     $addMethod($grpc.ServiceMethod<$0.CreateUserRequest, $0.CreateUserResponse>(

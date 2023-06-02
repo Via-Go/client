@@ -5,6 +5,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:users_repository/users_repository.dart';
 
+import '../../application/auth/user_bloc/user_bloc.dart';
+import '../../infrastructure/cache_repository.dart';
 import '../router/router.dart';
 
 class MyAppWidget extends StatelessWidget {
@@ -12,9 +14,23 @@ class MyAppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) => UsersRepository(),
-      child: _MyAppRouter(_appRouter),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<CacheRepository>(
+          create: (context) => CacheRepository()..initAdapters(),
+          lazy: false,
+        ),
+        RepositoryProvider<UsersRepository>(
+          create: (context) => UsersRepository(),
+        ),
+      ],
+      child: BlocProvider(
+        create: (context) => UserBloc(context.read<CacheRepository>())
+          ..add(
+            const UserEvent.authCheckRequested(),
+          ),
+        child: _MyAppRouter(_appRouter),
+      ),
     );
   }
 }
@@ -35,7 +51,7 @@ class _MyAppRouter extends StatelessWidget {
       ),
       themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
-      title: 'Road Runner',
+      title: 'Via Go',
       routerDelegate: router.delegate(),
       routeInformationParser: router.defaultRouteParser(),
       localizationsDelegates: const [

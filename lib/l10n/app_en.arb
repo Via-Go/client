@@ -30,6 +30,7 @@
   "resetPasswordInfo": "Enter your email address and we'll send you a link to reset your password",
   "resetPasswordSubmit": "Reset password",
   "email": "Email",
+  "username": "Username",
   "password": "Password",
   "firstName": "First name",
   "lastName": "Last name",
@@ -39,6 +40,16 @@
   "genderOther": "Other",
   "dateOfBirth": "Date of birth",
   "driverYes": "I'm a driver",
-  "driverNo": "I'm a passenger"
-  
+  "driverNo": "I'm a passenger",
+  "authCancelledByUser": "Cancelled by user",
+  "authServerError": "Server error",
+  "authEmailAlreadyInUse": "Email already in use",
+  "authInvalidEmailOrPassword": "Invalid email or password",
+  "authInvalidRegistrationInput": "Please, enter correct input",
+  "formInvalidPassword": "Invalid password",
+  "formInvalidEmail": "Invalid email",
+  "formInvalidUsername": "Invalid username",
+  "formInvalidPasswordExplanation": "Password should contains 8-16 characters, one uppercase and lowercase letter and one special character",
+  "formInvalidEmailExplanation": "Please, enter correct email",
+  "formInvalidUsernameExplanation": "Username should contains 6-20 characters"
 }
