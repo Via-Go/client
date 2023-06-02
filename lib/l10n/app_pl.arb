@@ -24,6 +24,7 @@
   "resetPasswordInfo": "Wpisz swój adres e-mail, a my wyślemy Ci link do zresetowania hasła",
   "resetPasswordSubmit": "Zresetuj hasło",
   "email": "Adres e-mail",
+  "username": "Nazwa użytkownika",
   "password": "Hasło",
   "firstName": "Imię",
   "lastName": "Nazwisko",

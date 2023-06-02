@@ -10,23 +10,34 @@ class EmailFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      decoration: getInputDecoration(
-        prefixIcon: const Icon(Icons.email),
-        hintText: context.l10n.email,
-      ),
-      keyboardType: TextInputType.emailAddress,
-      onChanged: (value) {
-        context.read<SignInFormBloc>().add(SignInFormEvent.emailChanged(value));
+    return BlocBuilder<SignInFormBloc, SignInFormState>(
+      builder: (context, state) {
+        return TextFormField(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          decoration: getInputDecoration(
+            prefixIcon: const Icon(Icons.email),
+            hintText: context.l10n.email,
+            showValidatorMessages: state.emailAddress.value.fold(
+              (f) => state.showValidatorMessages,
+              (_) => false,
+            ),
+          ),
+          keyboardType: TextInputType.emailAddress,
+          onChanged: (value) {
+            context
+                .read<SignInFormBloc>()
+                .add(SignInFormEvent.emailChanged(value));
+          },
+          validator: (_) =>
+              context.read<SignInFormBloc>().state.emailAddress.value.fold(
+                    (f) => f.maybeMap(
+                      invalidEmail: (_) => context.l10n.formInvalidEmail,
+                      orElse: () => null,
+                    ),
+                    (_) => null,
+                  ),
+        );
       },
-      validator: (_) =>
-          context.read<SignInFormBloc>().state.emailAddress.value.fold(
-                (f) => f.maybeMap(
-                  invalidEmail: (_) => context.l10n.formInvalidEmail,
-                  orElse: () => null,
-                ),
-                (_) => null,
-              ),
     );
   }
 }

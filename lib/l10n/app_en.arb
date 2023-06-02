@@ -30,6 +30,7 @@
   "resetPasswordInfo": "Enter your email address and we'll send you a link to reset your password",
   "resetPasswordSubmit": "Reset password",
   "email": "Email",
+  "username": "Username",
   "password": "Password",
   "firstName": "First name",
   "lastName": "Last name",

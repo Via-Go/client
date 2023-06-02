@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,10 +22,8 @@ class SignInForm extends StatelessWidget {
         const DefaultPadding(
           child: UsernameFormField(),
         ),
-        DefaultPadding(
-          child: PasswordFormField(
-            onPressed: () => context.router.push(const ResetPasswordRoute()),
-          ),
+        const DefaultPadding(
+          child: PasswordFormField(),
         ),
         const SizedBox(
           height: 20,

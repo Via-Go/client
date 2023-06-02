@@ -15,7 +15,7 @@ class UsernameFormField extends StatelessWidget {
             autovalidateMode: AutovalidateMode.onUserInteraction,
             decoration: getInputDecoration(
               prefixIcon: const Icon(Icons.person),
-              hintText: 'Username',
+              hintText: context.l10n.username,
               showValidatorMessages: state.username.value.fold(
                 (f) => state.showValidatorMessages,
                 (_) => false,

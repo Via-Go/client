@@ -79,6 +79,7 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
         emit(state.copyWith(
           authResult: some(left(const AuthFailure.invalidRegistrationInput())),
           isSubmitting: false,
+          showValidatorMessages: true,
         ));
         return;
       }

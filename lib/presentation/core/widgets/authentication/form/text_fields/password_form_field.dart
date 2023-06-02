@@ -9,54 +9,61 @@ import '../../../../constants/decorations.dart';
 class PasswordFormField extends StatefulWidget {
   const PasswordFormField({
     super.key,
-    this.onPressed,
   });
-
-  final Function()? onPressed;
 
   @override
   State<PasswordFormField> createState() => _PasswordFormFieldState();
+}
+
+class _PasswordFormFieldState extends State<PasswordFormField> {
+  bool obscure = true;
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SignInFormBloc, SignInFormState>(
+      builder: (context, state) {
+        return TextFormField(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          decoration: getInputDecoration(
+            hintText: context.l10n.password,
+            prefixIcon: const Icon(Icons.lock),
+            suffixIcon: IconButton(
+              icon: obscure
+                  ? const Icon(Icons.visibility_off)
+                  : const Icon(Icons.visibility),
+              onPressed: () => setState(() => obscure = !obscure),
+            ),
+            showValidatorMessages: state.password.value.fold(
+              (f) => state.showValidatorMessages,
+              (_) => false,
+            ),
+          ),
+          autocorrect: false,
+          obscureText: obscure,
+          onChanged: (value) => context.read<SignInFormBloc>().add(
+                SignInFormEvent.passwordChanged(value),
+              ),
+          onEditingComplete: () => {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                  content: Text(context.l10n.formInvalidPasswordExplanation)),
+            ),
+          },
+          validator: (_) =>
+              context.read<SignInFormBloc>().state.password.value.fold(
+                    (l) => l.maybeMap(
+                      invalidPassword: (_) => context.l10n.formInvalidPassword,
+                      orElse: () => null,
+                    ),
+                    (_) => null,
+                  ),
+        );
+      },
+    );
+  }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(ObjectFlagProperty<Function()?>.has('onPressed', onPressed));
-  }
-}
-
-class _PasswordFormFieldState extends State<PasswordFormField> {
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      decoration: getInputDecoration(
-        hintText: context.l10n.password,
-        prefixIcon: const Icon(Icons.lock),
-        suffixIcon: IconButton(
-          icon: const Icon(Icons.remove_red_eye),
-          onPressed: widget.onPressed,
-        ),
-      ),
-      autocorrect: false,
-      obscureText: true,
-      onChanged: (value) => context.read<SignInFormBloc>().add(
-            SignInFormEvent.passwordChanged(value),
-          ),
-      onEditingComplete: () => {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-                'Password should contains 8-16 characters, one uppercase and lowercase letter and one special character'),
-          ),
-        ),
-      },
-      validator: (_) =>
-          context.read<SignInFormBloc>().state.password.value.fold(
-                (l) => l.maybeMap(
-                  invalidPassword: (_) => 'Invalid Password',
-                  orElse: () => null,
-                ),
-                (_) => null,
-              ),
-    );
+    properties.add(DiagnosticsProperty<bool>('obscure', obscure));
   }
 }
